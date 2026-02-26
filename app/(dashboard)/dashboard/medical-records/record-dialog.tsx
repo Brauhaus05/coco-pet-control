@@ -327,7 +327,14 @@ export function RecordDialog({
                       type="number"
                       step="0.01"
                       min="0"
-                      {...field}
+                      value={field.value ?? ""}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        field.onChange(val === "" ? undefined : parseFloat(val));
+                      }}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      ref={field.ref}
                       className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
                     />
                   </FormControl>

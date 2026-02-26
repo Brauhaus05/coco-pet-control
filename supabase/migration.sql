@@ -150,6 +150,34 @@ AS $$
 $$;
 
 -- ============================================================
+-- 10b. SIGNUP HELPER: create clinic + profile in one step
+-- Called from the client via supabase.rpc('create_clinic_and_profile', ...)
+-- SECURITY DEFINER so it can bypass RLS (user has no profile yet).
+-- ============================================================
+CREATE OR REPLACE FUNCTION public.create_clinic_and_profile(
+    clinic_name TEXT,
+    user_full_name TEXT
+)
+RETURNS VOID
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+    new_clinic_id UUID;
+BEGIN
+    -- Create the clinic
+    INSERT INTO public.clinics (name)
+    VALUES (clinic_name)
+    RETURNING id INTO new_clinic_id;
+
+    -- Create the profile for the authenticated user
+    INSERT INTO public.profiles (id, clinic_id, full_name, role)
+    VALUES (auth.uid(), new_clinic_id, user_full_name, 'admin');
+END;
+$$;
+
+-- ============================================================
 -- 11. ROW LEVEL SECURITY
 -- ============================================================
 

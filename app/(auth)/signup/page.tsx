@@ -44,29 +44,14 @@ export default function SignupPage() {
       return;
     }
 
-    // 2. Create the clinic
-    const { data: clinic, error: clinicError } = await supabase
-      .from("clinics")
-      .insert({ name: clinicName })
-      .select("id")
-      .single();
-
-    if (clinicError || !clinic) {
-      toast.error("Failed to create clinic. Please contact support.");
-      setLoading(false);
-      return;
-    }
-
-    // 3. Create the profile (links user → clinic)
-    const { error: profileError } = await supabase.from("profiles").insert({
-      id: authData.user.id,
-      clinic_id: clinic.id,
-      full_name: fullName,
-      role: "admin",
+    // 2. Safely create clinic and profile via our new Database Function
+    const { error: setupError } = await supabase.rpc("create_clinic_and_profile", {
+      clinic_name: clinicName,
+      user_full_name: fullName,
     });
 
-    if (profileError) {
-      toast.error("Failed to create profile. Please contact support.");
+    if (setupError) {
+      toast.error("Failed to setup workspace: " + setupError.message);
       setLoading(false);
       return;
     }

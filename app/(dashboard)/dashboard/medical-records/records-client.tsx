@@ -14,6 +14,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Search, Pencil, Trash2, Image } from "lucide-react";
 import { toast } from "sonner";
@@ -38,6 +48,7 @@ export function MedicalRecordsClient({
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<MedicalRecordWithPet | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const filtered = records.filter((r) => {
     const q = search.toLowerCase();
@@ -49,18 +60,19 @@ export function MedicalRecordsClient({
     );
   });
 
-  async function handleDelete(id: string) {
-    if (!confirm("Delete this medical record?")) return;
+  async function confirmDelete() {
+    if (!deleteId) return;
     const supabase = createClient();
     const { error } = await supabase
       .from("medical_records")
       .delete()
-      .eq("id", id);
+      .eq("id", deleteId);
     if (error) toast.error(error.message);
     else {
       toast.success("Record deleted");
       router.refresh();
     }
+    setDeleteId(null);
   }
 
   function formatCurrency(amount: number) {
@@ -179,7 +191,7 @@ export function MedicalRecordsClient({
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 text-muted-foreground hover:text-red-400"
-                        onClick={() => handleDelete(rec.id)}
+                        onClick={() => setDeleteId(rec.id)}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -198,6 +210,32 @@ export function MedicalRecordsClient({
         record={editing}
         pets={pets}
       />
+
+      {/* Delete confirmation dialog */}
+      <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+        <AlertDialogContent className="bg-card border-border">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-foreground">
+              Delete Medical Record?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-muted-foreground">
+              This action cannot be undone. The medical record will be
+              permanently removed from the system.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="border-border text-foreground">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDelete}
+              className="bg-red-600 hover:bg-red-500 text-white"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

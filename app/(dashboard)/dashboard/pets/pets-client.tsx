@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { PetWithOwner } from "@/types/database";
 import { Button } from "@/components/ui/button";
@@ -126,7 +127,12 @@ export function PetsClient({ pets, owners }: PetsClientProps) {
                   className="border-border hover:bg-accent transition-colors"
                 >
                   <TableCell className="font-medium text-foreground">
-                    {pet.name}
+                    <Link
+                      href={`/dashboard/pets/${pet.id}`}
+                      className="hover:text-emerald-600 transition-colors underline-offset-2 hover:underline"
+                    >
+                      {pet.name}
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <Badge

@@ -394,7 +394,21 @@ export function AppointmentSummaryClient({
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Appointments
           </Button>
-          <Button className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white shadow-lg shadow-orange-500/20">
+          <Button
+            className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white shadow-lg shadow-orange-500/20"
+            onClick={() => {
+              const followUpDate = new Date();
+              followUpDate.setDate(followUpDate.getDate() + 14);
+              const params = new URLSearchParams({
+                action: "new",
+                pet_id: pet?.id ?? "",
+                vet_id: vet?.id ?? "",
+                reason: `Follow-up: ${apt.reason || "General checkup"}`,
+                date: followUpDate.toISOString().split("T")[0],
+              });
+              router.push(`/dashboard/appointments?${params.toString()}`);
+            }}
+          >
             <CalendarPlus className="w-4 h-4 mr-2" />
             Schedule Follow-up
           </Button>

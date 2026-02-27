@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Search, Pencil, Trash2 } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { OwnerDialog } from "./owner-dialog";
 
@@ -113,7 +113,8 @@ export function OwnersClient({ owners }: { owners: OwnerWithCount[] }) {
               filtered.map((owner) => (
                 <TableRow
                   key={owner.id}
-                  className="border-border hover:bg-accent transition-colors"
+                  className="border-border hover:bg-accent transition-colors cursor-pointer"
+                  onClick={() => router.push(`/dashboard/owners/${owner.id}`)}
                 >
                   <TableCell className="font-medium text-foreground">
                     {owner.first_name} {owner.last_name}
@@ -132,8 +133,16 @@ export function OwnersClient({ owners }: { owners: OwnerWithCount[] }) {
                       {owner.pet_count}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-end gap-1">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                        onClick={() => router.push(`/dashboard/owners/${owner.id}`)}
+                      >
+                        <Eye className="w-4 h-4" />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="icon"

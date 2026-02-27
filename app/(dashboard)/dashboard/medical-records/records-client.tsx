@@ -25,7 +25,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Search, Pencil, Trash2, Image } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, Image, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { RecordDialog } from "./record-dialog";
 import { format } from "date-fns";
@@ -146,7 +146,8 @@ export function MedicalRecordsClient({
               filtered.map((rec) => (
                 <TableRow
                   key={rec.id}
-                  className="border-border hover:bg-accent transition-colors"
+                  className="border-border hover:bg-accent transition-colors cursor-pointer"
+                  onClick={() => router.push(`/dashboard/medical-records/${rec.id}`)}
                 >
                   <TableCell className="text-foreground whitespace-nowrap">
                     {format(new Date(rec.visit_date), "MMM dd, yyyy")}
@@ -174,8 +175,16 @@ export function MedicalRecordsClient({
                       </Badge>
                     )}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-end gap-1">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                        onClick={() => router.push(`/dashboard/medical-records/${rec.id}`)}
+                      >
+                        <Eye className="w-4 h-4" />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="icon"

@@ -446,6 +446,7 @@ export function AppointmentsClient({
             <Table>
               <TableHeader>
                 <TableRow className="border-border hover:bg-transparent">
+                  <TableHead className="text-muted-foreground">Appt #</TableHead>
                   <TableHead className="text-muted-foreground">Date</TableHead>
                   <TableHead className="text-muted-foreground">Time</TableHead>
                   <TableHead className="text-muted-foreground">Pet</TableHead>
@@ -467,7 +468,7 @@ export function AppointmentsClient({
                 {filtered.length === 0 ? (
                   <TableRow className="border-border">
                     <TableCell
-                      colSpan={7}
+                      colSpan={8}
                       className="text-center py-12 text-muted-foreground"
                     >
                       {search || statusFilter !== "all"
@@ -482,6 +483,11 @@ export function AppointmentsClient({
                       className="border-border hover:bg-accent transition-colors cursor-pointer"
                       onClick={() => router.push(`/dashboard/appointments/${apt.id}`)}
                     >
+                      <TableCell className="text-muted-foreground font-mono text-xs whitespace-nowrap">
+                        {(apt as any).appointment_number
+                          ? `AP-${new Date(apt.created_at).getFullYear()}-${String((apt as any).appointment_number).padStart(3, "0")}`
+                          : `AP-${apt.id.slice(0, 6).toUpperCase()}`}
+                      </TableCell>
                       <TableCell className="text-foreground whitespace-nowrap">
                         {format(new Date(apt.start_time), "MMM dd, yyyy")}
                       </TableCell>

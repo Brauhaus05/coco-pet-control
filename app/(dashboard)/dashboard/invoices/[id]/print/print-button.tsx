@@ -11,7 +11,7 @@ export function PrintButton() {
       <Button
         variant="outline"
         onClick={() => router.back()}
-        className="bg-zinc-900 border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:text-zinc-100"
+        className="bg-card border-border text-muted-foreground hover:bg-accent hover:text-foreground"
       >
         <ArrowLeft className="w-4 h-4 mr-2" />
         Back

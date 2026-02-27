@@ -125,9 +125,9 @@ export function InvoiceDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-md">
+      <DialogContent className="bg-popover border-border text-foreground sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-zinc-100">
+          <DialogTitle className="text-foreground">
             {isEditing ? "Edit Invoice" : "Create Invoice"}
           </DialogTitle>
         </DialogHeader>
@@ -139,22 +139,22 @@ export function InvoiceDialog({
               name="owner_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Bill to</FormLabel>
+                  <FormLabel className="text-foreground">Bill to</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="bg-zinc-800/50 border-zinc-700 text-zinc-100">
+                      <SelectTrigger className="bg-muted border-border text-foreground">
                         <SelectValue placeholder="Select owner" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-zinc-900 border-zinc-800">
+                    <SelectContent className="bg-popover border-border">
                       {owners.map((o) => (
                         <SelectItem
                           key={o.id}
                           value={o.id}
-                          className="text-zinc-100 focus:bg-zinc-800"
+                          className="text-foreground focus:bg-accent"
                         >
                           {o.first_name} {o.last_name}
                         </SelectItem>
@@ -171,23 +171,23 @@ export function InvoiceDialog({
               name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Status</FormLabel>
+                  <FormLabel className="text-foreground">Status</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="bg-zinc-800/50 border-zinc-700 text-zinc-100">
+                      <SelectTrigger className="bg-muted border-border text-foreground">
                         <SelectValue />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-zinc-900 border-zinc-800">
+                    <SelectContent className="bg-popover border-border">
                       {["draft", "sent", "paid", "overdue", "cancelled"].map(
                         (s) => (
                           <SelectItem
                             key={s}
                             value={s}
-                            className="text-zinc-100 focus:bg-zinc-800 capitalize"
+                            className="text-foreground focus:bg-accent capitalize"
                           >
                             {s.charAt(0).toUpperCase() + s.slice(1)}
                           </SelectItem>
@@ -206,12 +206,12 @@ export function InvoiceDialog({
                 name="issue_date"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Issue date</FormLabel>
+                    <FormLabel className="text-foreground">Issue date</FormLabel>
                     <FormControl>
                       <Input
                         type="date"
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -223,12 +223,12 @@ export function InvoiceDialog({
                 name="due_date"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Due date</FormLabel>
+                    <FormLabel className="text-foreground">Due date</FormLabel>
                     <FormControl>
                       <Input
                         type="date"
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -242,12 +242,12 @@ export function InvoiceDialog({
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Notes</FormLabel>
+                  <FormLabel className="text-foreground">Notes</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       rows={2}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100 resize-none"
+                      className="bg-muted border-border text-foreground resize-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -260,7 +260,7 @@ export function InvoiceDialog({
                 type="button"
                 variant="ghost"
                 onClick={() => onOpenChange(false)}
-                className="text-zinc-400 hover:text-zinc-100"
+                className="text-muted-foreground hover:text-foreground"
               >
                 Cancel
               </Button>

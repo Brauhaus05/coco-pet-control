@@ -102,10 +102,10 @@ export function AppointmentsClient({
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-100">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
             Appointments
           </h1>
-          <p className="text-zinc-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             Schedule and manage patient appointments.
           </p>
         </div>
@@ -122,7 +122,7 @@ export function AppointmentsClient({
         </Button>
       </div>
 
-      <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 calendar-dark">
+      <div className="rounded-xl border border-border bg-card p-4 calendar-light">
         <Calendar
           localizer={localizer}
           events={events}
@@ -140,60 +140,60 @@ export function AppointmentsClient({
         />
       </div>
 
-      {/* Custom dark mode styles for react-big-calendar */}
+      {/* Custom light mode styles for react-big-calendar */}
       <style jsx global>{`
-        .calendar-dark .rbc-calendar {
-          color: #d4d4d8;
+        .calendar-light .rbc-calendar {
+          color: oklch(0.25 0.02 136.6);
         }
-        .calendar-dark .rbc-toolbar button {
-          color: #a1a1aa;
-          border-color: #3f3f46;
+        .calendar-light .rbc-toolbar button {
+          color: oklch(0.45 0.02 136.6);
+          border-color: oklch(0.935 0.023 128.5);
           background: transparent;
         }
-        .calendar-dark .rbc-toolbar button:hover,
-        .calendar-dark .rbc-toolbar button.rbc-active {
-          background: #27272a;
-          color: #f4f4f5;
-          border-color: #52525b;
+        .calendar-light .rbc-toolbar button:hover,
+        .calendar-light .rbc-toolbar button.rbc-active {
+          background: oklch(0.935 0.023 128.5);
+          color: oklch(0.25 0.02 136.6);
+          border-color: oklch(0.935 0.023 128.5);
         }
-        .calendar-dark .rbc-header {
-          border-color: #3f3f46;
-          color: #a1a1aa;
+        .calendar-light .rbc-header {
+          border-color: oklch(0.935 0.023 128.5);
+          color: oklch(0.45 0.02 136.6);
           padding: 8px 4px;
           font-weight: 500;
         }
-        .calendar-dark .rbc-month-view,
-        .calendar-dark .rbc-time-view {
-          border-color: #3f3f46;
+        .calendar-light .rbc-month-view,
+        .calendar-light .rbc-time-view {
+          border-color: oklch(0.935 0.023 128.5);
         }
-        .calendar-dark .rbc-day-bg {
-          border-color: #27272a;
+        .calendar-light .rbc-day-bg {
+          border-color: oklch(0.935 0.023 128.5);
         }
-        .calendar-dark .rbc-off-range-bg {
-          background: #18181b;
+        .calendar-light .rbc-off-range-bg {
+          background: oklch(0.96 0.01 136.6);
         }
-        .calendar-dark .rbc-today {
-          background: rgba(16, 185, 129, 0.05);
+        .calendar-light .rbc-today {
+          background: rgba(16, 185, 129, 0.06);
         }
-        .calendar-dark .rbc-month-row,
-        .calendar-dark .rbc-time-content,
-        .calendar-dark .rbc-timeslot-group {
-          border-color: #27272a;
+        .calendar-light .rbc-month-row,
+        .calendar-light .rbc-time-content,
+        .calendar-light .rbc-timeslot-group {
+          border-color: oklch(0.935 0.023 128.5);
         }
-        .calendar-dark .rbc-time-header-content {
-          border-color: #3f3f46;
+        .calendar-light .rbc-time-header-content {
+          border-color: oklch(0.935 0.023 128.5);
         }
-        .calendar-dark .rbc-time-slot {
-          border-color: #1f1f23;
+        .calendar-light .rbc-time-slot {
+          border-color: oklch(0.96 0.01 136.6);
         }
-        .calendar-dark .rbc-label {
-          color: #71717a;
+        .calendar-light .rbc-label {
+          color: oklch(0.45 0.02 136.6);
           font-size: 0.75rem;
         }
-        .calendar-dark .rbc-current-time-indicator {
+        .calendar-light .rbc-current-time-indicator {
           background: #10b981;
         }
-        .calendar-dark .rbc-show-more {
+        .calendar-light .rbc-show-more {
           color: #10b981;
         }
       `}</style>

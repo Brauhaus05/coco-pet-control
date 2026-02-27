@@ -175,9 +175,9 @@ export function AppointmentDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-md">
+      <DialogContent className="bg-popover border-border text-foreground sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-zinc-100">
+          <DialogTitle className="text-foreground">
             {isEditing ? "Edit Appointment" : "New Appointment"}
           </DialogTitle>
         </DialogHeader>
@@ -189,22 +189,22 @@ export function AppointmentDialog({
               name="pet_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Pet</FormLabel>
+                  <FormLabel className="text-foreground">Pet</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="bg-zinc-800/50 border-zinc-700 text-zinc-100">
+                      <SelectTrigger className="bg-muted border-border text-foreground">
                         <SelectValue placeholder="Select pet" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-zinc-900 border-zinc-800">
+                    <SelectContent className="bg-popover border-border">
                       {pets.map((p) => (
                         <SelectItem
                           key={p.id}
                           value={p.id}
-                          className="text-zinc-100 focus:bg-zinc-800"
+                          className="text-foreground focus:bg-accent"
                         >
                           {p.name}
                           {p.owners &&
@@ -224,12 +224,12 @@ export function AppointmentDialog({
                 name="start_time"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Start</FormLabel>
+                    <FormLabel className="text-foreground">Start</FormLabel>
                     <FormControl>
                       <Input
                         type="datetime-local"
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -241,12 +241,12 @@ export function AppointmentDialog({
                 name="end_time"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">End</FormLabel>
+                    <FormLabel className="text-foreground">End</FormLabel>
                     <FormControl>
                       <Input
                         type="datetime-local"
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -260,12 +260,12 @@ export function AppointmentDialog({
               name="reason"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Reason</FormLabel>
+                  <FormLabel className="text-foreground">Reason</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       placeholder="e.g. Annual checkup"
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                      className="bg-muted border-border text-foreground"
                     />
                   </FormControl>
                   <FormMessage />
@@ -279,17 +279,17 @@ export function AppointmentDialog({
                 name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Status</FormLabel>
+                    <FormLabel className="text-foreground">Status</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="bg-zinc-800/50 border-zinc-700 text-zinc-100">
+                        <SelectTrigger className="bg-muted border-border text-foreground">
                           <SelectValue />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent className="bg-zinc-900 border-zinc-800">
+                      <SelectContent className="bg-popover border-border">
                         {[
                           "scheduled",
                           "completed",
@@ -299,7 +299,7 @@ export function AppointmentDialog({
                           <SelectItem
                             key={s}
                             value={s}
-                            className="text-zinc-100 focus:bg-zinc-800 capitalize"
+                            className="text-foreground focus:bg-accent capitalize"
                           >
                             {s.charAt(0).toUpperCase() +
                               s.slice(1).replace("-", " ")}
@@ -332,7 +332,7 @@ export function AppointmentDialog({
                   type="button"
                   variant="ghost"
                   onClick={() => onOpenChange(false)}
-                  className="text-zinc-400 hover:text-zinc-100"
+                  className="text-muted-foreground hover:text-foreground"
                 >
                   Cancel
                 </Button>

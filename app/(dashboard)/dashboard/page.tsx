@@ -53,10 +53,10 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-100">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Dashboard
         </h1>
-        <p className="text-zinc-400 mt-1">
+        <p className="text-muted-foreground mt-1">
           Overview of your clinic at a glance.
         </p>
       </div>
@@ -65,10 +65,10 @@ export default async function DashboardPage() {
         {stats.map((stat) => (
           <Card
             key={stat.label}
-            className="bg-zinc-900/60 border-zinc-800 hover:border-zinc-700 transition-colors"
+            className="bg-card border-border hover:border-border transition-colors"
           >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-400">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
                 {stat.label}
               </CardTitle>
               <div
@@ -78,7 +78,7 @@ export default async function DashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-zinc-100">{stat.value}</p>
+              <p className="text-3xl font-bold text-foreground">{stat.value}</p>
             </CardContent>
           </Card>
         ))}

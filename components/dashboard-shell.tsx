@@ -70,7 +70,7 @@ export default function DashboardShell({
     : "??";
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex">
+    <div className="min-h-screen bg-background text-foreground flex">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div
@@ -82,12 +82,12 @@ export default function DashboardShell({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-zinc-900/95 backdrop-blur-xl border-r border-zinc-800 flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto print:hidden",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-card/95 backdrop-blur-xl border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto print:hidden",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Logo */}
-        <div className="h-16 flex items-center gap-3 px-6 border-b border-zinc-800 shrink-0">
+        <div className="h-16 flex items-center gap-3 px-6 border-b border-border shrink-0">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
             <PawPrint className="w-5 h-5 text-white" />
           </div>
@@ -97,7 +97,7 @@ export default function DashboardShell({
           <Button
             variant="ghost"
             size="icon"
-            className="ml-auto lg:hidden text-zinc-400 hover:text-zinc-100"
+            className="ml-auto lg:hidden text-muted-foreground hover:text-foreground"
             onClick={() => setSidebarOpen(false)}
           >
             <X className="w-5 h-5" />
@@ -120,7 +120,7 @@ export default function DashboardShell({
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                   isActive
                     ? "bg-emerald-500/10 text-emerald-400 shadow-sm"
-                    : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
                 )}
               >
                 <item.icon className="w-5 h-5 shrink-0" />
@@ -131,8 +131,8 @@ export default function DashboardShell({
         </nav>
 
         {/* Clinic info at the bottom */}
-        <div className="p-4 border-t border-zinc-800 shrink-0">
-          <p className="text-xs text-zinc-500 truncate">
+        <div className="p-4 border-t border-border shrink-0">
+          <p className="text-xs text-muted-foreground truncate">
             {profile?.clinics?.name ?? "No clinic"}
           </p>
         </div>
@@ -141,11 +141,11 @@ export default function DashboardShell({
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="h-16 border-b border-zinc-800 bg-zinc-900/60 backdrop-blur-xl flex items-center justify-between px-4 lg:px-6 shrink-0 print:hidden">
+        <header className="h-16 border-b border-border bg-card/60 backdrop-blur-xl flex items-center justify-between px-4 lg:px-6 shrink-0 print:hidden">
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden text-zinc-400 hover:text-zinc-100"
+            className="lg:hidden text-muted-foreground hover:text-foreground"
             onClick={() => setSidebarOpen(true)}
           >
             <Menu className="w-5 h-5" />
@@ -157,31 +157,31 @@ export default function DashboardShell({
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="flex items-center gap-2 px-2 hover:bg-zinc-800/60"
+                className="flex items-center gap-2 px-2 hover:bg-accent"
               >
-                <Avatar className="h-8 w-8 border border-zinc-700">
+                <Avatar className="h-8 w-8 border border-border">
                   <AvatarFallback className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white text-xs font-semibold">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
-                <span className="text-sm text-zinc-300 hidden sm:inline-block">
+                <span className="text-sm text-foreground hidden sm:inline-block">
                   {profile?.full_name ?? "User"}
                 </span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="w-48 bg-zinc-900 border-zinc-800"
+              className="w-48 bg-popover border-border"
             >
               <div className="px-2 py-1.5">
-                <p className="text-sm text-zinc-300 font-medium">
+                <p className="text-sm text-foreground font-medium">
                   {profile?.full_name}
                 </p>
-                <p className="text-xs text-zinc-500 capitalize">
+                <p className="text-xs text-muted-foreground capitalize">
                   {profile?.role}
                 </p>
               </div>
-              <DropdownMenuSeparator className="bg-zinc-800" />
+              <DropdownMenuSeparator className="bg-border" />
               <DropdownMenuItem
                 onClick={handleLogout}
                 className="text-red-400 focus:text-red-400 focus:bg-red-500/10 cursor-pointer"

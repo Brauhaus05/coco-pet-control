@@ -63,21 +63,21 @@ export function InvoicesClient({ invoices, owners }: InvoicesClientProps) {
   }
 
   const statusColors: Record<string, string> = {
-    draft: "bg-zinc-700/50 text-zinc-300 border-zinc-600",
+    draft: "bg-muted text-muted-foreground border-border",
     sent: "bg-blue-500/10 text-blue-400 border-blue-500/20",
     paid: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
     overdue: "bg-red-500/10 text-red-400 border-red-500/20",
-    cancelled: "bg-zinc-800 text-zinc-500 border-zinc-700",
+    cancelled: "bg-muted text-muted-foreground border-border",
   };
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-100">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
             Invoices
           </h1>
-          <p className="text-zinc-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             Create and manage invoices for pet owners.
           </p>
         </div>
@@ -94,35 +94,35 @@ export function InvoicesClient({ invoices, owners }: InvoicesClientProps) {
       </div>
 
       <div className="relative max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input
           placeholder="Search invoices…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="pl-10 bg-zinc-900/60 border-zinc-800 text-zinc-100 placeholder:text-zinc-500"
+          className="pl-10 bg-card border-border text-foreground placeholder:text-muted-foreground"
         />
       </div>
 
-      <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
+      <div className="rounded-xl border border-border bg-card overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="border-zinc-800 hover:bg-transparent">
-              <TableHead className="text-zinc-400">Invoice #</TableHead>
-              <TableHead className="text-zinc-400">Owner</TableHead>
-              <TableHead className="text-zinc-400">Date</TableHead>
-              <TableHead className="text-zinc-400">Status</TableHead>
-              <TableHead className="text-zinc-400">Total</TableHead>
-              <TableHead className="text-zinc-400 text-right">
+            <TableRow className="border-border hover:bg-transparent">
+              <TableHead className="text-muted-foreground">Invoice #</TableHead>
+              <TableHead className="text-muted-foreground">Owner</TableHead>
+              <TableHead className="text-muted-foreground">Date</TableHead>
+              <TableHead className="text-muted-foreground">Status</TableHead>
+              <TableHead className="text-muted-foreground">Total</TableHead>
+              <TableHead className="text-muted-foreground text-right">
                 Actions
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filtered.length === 0 ? (
-              <TableRow className="border-zinc-800">
+              <TableRow className="border-border">
                 <TableCell
                   colSpan={6}
-                  className="text-center py-12 text-zinc-500"
+                  className="text-center py-12 text-muted-foreground"
                 >
                   {search
                     ? "No invoices match your search."
@@ -133,17 +133,17 @@ export function InvoicesClient({ invoices, owners }: InvoicesClientProps) {
               filtered.map((inv) => (
                 <TableRow
                   key={inv.id}
-                  className="border-zinc-800 hover:bg-zinc-800/40 transition-colors"
+                  className="border-border hover:bg-accent transition-colors"
                 >
-                  <TableCell className="font-mono text-zinc-400 text-xs">
+                  <TableCell className="font-mono text-muted-foreground text-xs">
                     {inv.id.slice(0, 8).toUpperCase()}
                   </TableCell>
-                  <TableCell className="font-medium text-zinc-200">
+                  <TableCell className="font-medium text-foreground">
                     {inv.owners
                       ? `${inv.owners.first_name} ${inv.owners.last_name}`
                       : "—"}
                   </TableCell>
-                  <TableCell className="text-zinc-400">
+                  <TableCell className="text-muted-foreground">
                     {format(new Date(inv.issue_date), "MMM dd, yyyy")}
                   </TableCell>
                   <TableCell>
@@ -154,7 +154,7 @@ export function InvoicesClient({ invoices, owners }: InvoicesClientProps) {
                       {inv.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-zinc-200 font-medium">
+                  <TableCell className="text-foreground font-medium">
                     {formatCurrency(inv.total)}
                   </TableCell>
                   <TableCell className="text-right">
@@ -162,7 +162,7 @@ export function InvoicesClient({ invoices, owners }: InvoicesClientProps) {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-zinc-400 hover:text-zinc-100"
+                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
                         asChild
                       >
                         <Link href={`/dashboard/invoices/${inv.id}/print`}>
@@ -172,7 +172,7 @@ export function InvoicesClient({ invoices, owners }: InvoicesClientProps) {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-zinc-400 hover:text-zinc-100"
+                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
                         onClick={() => {
                           setEditing(inv);
                           setDialogOpen(true);
@@ -183,7 +183,7 @@ export function InvoicesClient({ invoices, owners }: InvoicesClientProps) {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-zinc-400 hover:text-red-400"
+                        className="h-8 w-8 text-muted-foreground hover:text-red-400"
                         onClick={() => handleDelete(inv.id)}
                       >
                         <Trash2 className="w-4 h-4" />

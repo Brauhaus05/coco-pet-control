@@ -127,9 +127,9 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-popover border-border text-foreground sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-zinc-100">
+          <DialogTitle className="text-foreground">
             {isEditing ? "Edit Pet" : "Add Pet"}
           </DialogTitle>
         </DialogHeader>
@@ -141,22 +141,22 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
               name="owner_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Owner</FormLabel>
+                  <FormLabel className="text-foreground">Owner</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="bg-zinc-800/50 border-zinc-700 text-zinc-100">
+                      <SelectTrigger className="bg-muted border-border text-foreground">
                         <SelectValue placeholder="Select owner" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-zinc-900 border-zinc-800">
+                    <SelectContent className="bg-popover border-border">
                       {owners.map((o) => (
                         <SelectItem
                           key={o.id}
                           value={o.id}
-                          className="text-zinc-100 focus:bg-zinc-800"
+                          className="text-foreground focus:bg-accent"
                         >
                           {o.first_name} {o.last_name}
                         </SelectItem>
@@ -174,11 +174,11 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Pet name</FormLabel>
+                    <FormLabel className="text-foreground">Pet name</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -190,23 +190,23 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
                 name="species"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Species</FormLabel>
+                    <FormLabel className="text-foreground">Species</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="bg-zinc-800/50 border-zinc-700 text-zinc-100">
+                        <SelectTrigger className="bg-muted border-border text-foreground">
                           <SelectValue placeholder="Select species" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent className="bg-zinc-900 border-zinc-800">
+                      <SelectContent className="bg-popover border-border">
                         {["Dog", "Cat", "Bird", "Reptile", "Rabbit", "Other"].map(
                           (s) => (
                             <SelectItem
                               key={s}
                               value={s.toLowerCase()}
-                              className="text-zinc-100 focus:bg-zinc-800"
+                              className="text-foreground focus:bg-accent"
                             >
                               {s}
                             </SelectItem>
@@ -226,11 +226,11 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
                 name="breed"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Breed</FormLabel>
+                    <FormLabel className="text-foreground">Breed</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -242,32 +242,32 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
                 name="sex"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Sex</FormLabel>
+                    <FormLabel className="text-foreground">Sex</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="bg-zinc-800/50 border-zinc-700 text-zinc-100">
+                        <SelectTrigger className="bg-muted border-border text-foreground">
                           <SelectValue placeholder="Select sex" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent className="bg-zinc-900 border-zinc-800">
+                      <SelectContent className="bg-popover border-border">
                         <SelectItem
                           value="male"
-                          className="text-zinc-100 focus:bg-zinc-800"
+                          className="text-foreground focus:bg-accent"
                         >
                           Male
                         </SelectItem>
                         <SelectItem
                           value="female"
-                          className="text-zinc-100 focus:bg-zinc-800"
+                          className="text-foreground focus:bg-accent"
                         >
                           Female
                         </SelectItem>
                         <SelectItem
                           value="unknown"
-                          className="text-zinc-100 focus:bg-zinc-800"
+                          className="text-foreground focus:bg-accent"
                         >
                           Unknown
                         </SelectItem>
@@ -285,14 +285,14 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
                 name="date_of_birth"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">
+                    <FormLabel className="text-foreground">
                       Date of birth
                     </FormLabel>
                     <FormControl>
                       <Input
                         type="date"
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -304,7 +304,7 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
                 name="weight_kg"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">
+                    <FormLabel className="text-foreground">
                       Weight (kg)
                     </FormLabel>
                     <FormControl>
@@ -319,7 +319,7 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
                         onBlur={field.onBlur}
                         name={field.name}
                         ref={field.ref}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -333,12 +333,12 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Notes</FormLabel>
+                  <FormLabel className="text-foreground">Notes</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       rows={2}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100 resize-none"
+                      className="bg-muted border-border text-foreground resize-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -351,7 +351,7 @@ export function PetDialog({ open, onOpenChange, pet, owners }: PetDialogProps) {
                 type="button"
                 variant="ghost"
                 onClick={() => onOpenChange(false)}
-                className="text-zinc-400 hover:text-zinc-100"
+                className="text-muted-foreground hover:text-foreground"
               >
                 Cancel
               </Button>

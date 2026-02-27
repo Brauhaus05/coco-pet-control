@@ -181,9 +181,9 @@ export function RecordDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-popover border-border text-foreground sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-zinc-100">
+          <DialogTitle className="text-foreground">
             {isEditing ? "Edit Medical Record" : "Add Medical Record"}
           </DialogTitle>
         </DialogHeader>
@@ -196,22 +196,22 @@ export function RecordDialog({
                 name="pet_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Pet</FormLabel>
+                    <FormLabel className="text-foreground">Pet</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="bg-zinc-800/50 border-zinc-700 text-zinc-100">
+                        <SelectTrigger className="bg-muted border-border text-foreground">
                           <SelectValue placeholder="Select pet" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent className="bg-zinc-900 border-zinc-800">
+                      <SelectContent className="bg-popover border-border">
                         {pets.map((p) => (
                           <SelectItem
                             key={p.id}
                             value={p.id}
-                            className="text-zinc-100 focus:bg-zinc-800"
+                            className="text-foreground focus:bg-accent"
                           >
                             {p.name}
                             {p.owners &&
@@ -229,12 +229,12 @@ export function RecordDialog({
                 name="visit_date"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Visit date</FormLabel>
+                    <FormLabel className="text-foreground">Visit date</FormLabel>
                     <FormControl>
                       <Input
                         type="date"
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -248,13 +248,13 @@ export function RecordDialog({
               name="chief_complaint"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">
+                  <FormLabel className="text-foreground">
                     Chief complaint
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                      className="bg-muted border-border text-foreground"
                     />
                   </FormControl>
                   <FormMessage />
@@ -267,12 +267,12 @@ export function RecordDialog({
               name="diagnosis"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Diagnosis</FormLabel>
+                  <FormLabel className="text-foreground">Diagnosis</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       rows={2}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100 resize-none"
+                      className="bg-muted border-border text-foreground resize-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -285,12 +285,12 @@ export function RecordDialog({
               name="treatment"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Treatment</FormLabel>
+                  <FormLabel className="text-foreground">Treatment</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       rows={2}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100 resize-none"
+                      className="bg-muted border-border text-foreground resize-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -303,12 +303,12 @@ export function RecordDialog({
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Notes</FormLabel>
+                  <FormLabel className="text-foreground">Notes</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       rows={2}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100 resize-none"
+                      className="bg-muted border-border text-foreground resize-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -321,7 +321,7 @@ export function RecordDialog({
               name="cost"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Cost ($)</FormLabel>
+                  <FormLabel className="text-foreground">Cost ($)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -335,7 +335,7 @@ export function RecordDialog({
                       onBlur={field.onBlur}
                       name={field.name}
                       ref={field.ref}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                      className="bg-muted border-border text-foreground"
                     />
                   </FormControl>
                   <FormMessage />
@@ -345,14 +345,14 @@ export function RecordDialog({
 
             {/* Image upload */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-zinc-300">
+              <label className="text-sm font-medium text-foreground">
                 Images
               </label>
               <div className="flex flex-wrap gap-2">
                 {imageUrls.map((url, i) => (
                   <div
                     key={i}
-                    className="relative group w-16 h-16 rounded-lg overflow-hidden border border-zinc-700"
+                    className="relative group w-16 h-16 rounded-lg overflow-hidden border border-border"
                   >
                     <img
                       src={url}
@@ -368,11 +368,11 @@ export function RecordDialog({
                     </button>
                   </div>
                 ))}
-                <label className="w-16 h-16 rounded-lg border-2 border-dashed border-zinc-700 flex items-center justify-center cursor-pointer hover:border-emerald-500/50 transition-colors">
+                <label className="w-16 h-16 rounded-lg border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:border-emerald-500/50 transition-colors">
                   {uploading ? (
-                    <Loader2 className="w-5 h-5 text-zinc-500 animate-spin" />
+                    <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" />
                   ) : (
-                    <Upload className="w-5 h-5 text-zinc-500" />
+                    <Upload className="w-5 h-5 text-muted-foreground" />
                   )}
                   <input
                     type="file"
@@ -391,7 +391,7 @@ export function RecordDialog({
                 type="button"
                 variant="ghost"
                 onClick={() => onOpenChange(false)}
-                className="text-zinc-400 hover:text-zinc-100"
+                className="text-muted-foreground hover:text-foreground"
               >
                 Cancel
               </Button>

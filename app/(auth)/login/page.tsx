@@ -45,22 +45,22 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-sky-500/5 rounded-full blur-3xl" />
       </div>
 
-      <Card className="w-full max-w-md border-zinc-800 bg-zinc-900/80 backdrop-blur-xl shadow-2xl relative">
+      <Card className="w-full max-w-md border-border bg-card backdrop-blur-xl shadow-2xl relative">
         <CardHeader className="text-center space-y-3">
           <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
             <PawPrint className="w-7 h-7 text-white" />
           </div>
-          <CardTitle className="text-2xl font-bold text-zinc-100">
+          <CardTitle className="text-2xl font-bold text-foreground">
             Welcome back
           </CardTitle>
-          <CardDescription className="text-zinc-400">
+          <CardDescription className="text-muted-foreground">
             Sign in to CoCo Pet Control
           </CardDescription>
         </CardHeader>
@@ -68,7 +68,7 @@ export default function LoginPage() {
         <form onSubmit={handleLogin}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-zinc-300">
+              <Label htmlFor="email" className="text-foreground">
                 Email
               </Label>
               <Input
@@ -78,11 +78,11 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus-visible:ring-emerald-500/50"
+                className="bg-muted border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-ring"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-zinc-300">
+              <Label htmlFor="password" className="text-foreground">
                 Password
               </Label>
               <Input
@@ -92,7 +92,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus-visible:ring-emerald-500/50"
+                className="bg-muted border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-ring"
               />
             </div>
           </CardContent>
@@ -112,7 +112,7 @@ export default function LoginPage() {
                 "Sign in"
               )}
             </Button>
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}
               <Link
                 href="/signup"

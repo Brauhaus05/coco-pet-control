@@ -116,9 +116,9 @@ export function OwnerDialog({ open, onOpenChange, owner }: OwnerDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-zinc-900 border-zinc-800 text-zinc-100 sm:max-w-md">
+      <DialogContent className="bg-popover border-border text-foreground sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-zinc-100">
+          <DialogTitle className="text-foreground">
             {isEditing ? "Edit Owner" : "Add Owner"}
           </DialogTitle>
         </DialogHeader>
@@ -131,11 +131,11 @@ export function OwnerDialog({ open, onOpenChange, owner }: OwnerDialogProps) {
                 name="first_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">First name</FormLabel>
+                    <FormLabel className="text-foreground">First name</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -147,11 +147,11 @@ export function OwnerDialog({ open, onOpenChange, owner }: OwnerDialogProps) {
                 name="last_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-300">Last name</FormLabel>
+                    <FormLabel className="text-foreground">Last name</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                        className="bg-muted border-border text-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -165,12 +165,12 @@ export function OwnerDialog({ open, onOpenChange, owner }: OwnerDialogProps) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Email</FormLabel>
+                  <FormLabel className="text-foreground">Email</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
                       {...field}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                      className="bg-muted border-border text-foreground"
                     />
                   </FormControl>
                   <FormMessage />
@@ -183,11 +183,11 @@ export function OwnerDialog({ open, onOpenChange, owner }: OwnerDialogProps) {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Phone</FormLabel>
+                  <FormLabel className="text-foreground">Phone</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100"
+                      className="bg-muted border-border text-foreground"
                     />
                   </FormControl>
                   <FormMessage />
@@ -200,12 +200,12 @@ export function OwnerDialog({ open, onOpenChange, owner }: OwnerDialogProps) {
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-300">Address</FormLabel>
+                  <FormLabel className="text-foreground">Address</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       rows={2}
-                      className="bg-zinc-800/50 border-zinc-700 text-zinc-100 resize-none"
+                      className="bg-muted border-border text-foreground resize-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -218,7 +218,7 @@ export function OwnerDialog({ open, onOpenChange, owner }: OwnerDialogProps) {
                 type="button"
                 variant="ghost"
                 onClick={() => onOpenChange(false)}
-                className="text-zinc-400 hover:text-zinc-100"
+                className="text-muted-foreground hover:text-foreground"
               >
                 Cancel
               </Button>

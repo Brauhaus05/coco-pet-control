@@ -146,16 +146,20 @@ export function AppointmentDialog({
       return;
     }
 
-    const payload = {
+    const payload: Record<string, unknown> = {
       pet_id: values.pet_id,
       start_time: new Date(values.start_time).toISOString(),
       end_time: new Date(values.end_time).toISOString(),
       reason: values.reason || null,
-      notes: values.notes || null,
       status: values.status,
       clinic_id: profile.clinic_id,
       vet_id: values.vet_id || user.id,
     };
+
+    // Only include notes if non-empty (column may not exist in all environments)
+    if (values.notes) {
+      payload.notes = values.notes;
+    }
 
     if (isEditing) {
       const { error } = await supabase

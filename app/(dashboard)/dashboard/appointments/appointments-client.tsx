@@ -36,6 +36,7 @@ import {
   Pencil,
   Trash2,
   CalendarPlus,
+  Eye,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -175,10 +176,8 @@ export function AppointmentsClient({
   );
 
   const handleSelectEvent = useCallback((event: CalendarEvent) => {
-    setEditing(event.resource);
-    setSelectedSlot(null);
-    setDialogOpen(true);
-  }, []);
+    router.push(`/dashboard/appointments/${event.id}`);
+  }, [router]);
 
   const handleEventDrop = useCallback(
     async ({
@@ -480,7 +479,8 @@ export function AppointmentsClient({
                   filtered.map((apt) => (
                     <TableRow
                       key={apt.id}
-                      className="border-border hover:bg-accent transition-colors"
+                      className="border-border hover:bg-accent transition-colors cursor-pointer"
+                      onClick={() => router.push(`/dashboard/appointments/${apt.id}`)}
                     >
                       <TableCell className="text-foreground whitespace-nowrap">
                         {format(new Date(apt.start_time), "MMM dd, yyyy")}
@@ -511,7 +511,15 @@ export function AppointmentsClient({
                           {STATUS_COLORS[apt.status]?.label ?? apt.status}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-muted-foreground hover:text-emerald-600"
+                          onClick={() => router.push(`/dashboard/appointments/${apt.id}`)}
+                        >
+                          <Eye className="w-4 h-4" />
+                        </Button>
                         <Button
                           variant="ghost"
                           size="icon"

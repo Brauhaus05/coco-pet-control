@@ -19,6 +19,9 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Search, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { PetDialog } from "./pet-dialog";
+import { DataPagination } from "@/components/data-pagination";
+
+const PAGE_SIZE = 15;
 
 interface PetsClientProps {
   pets: PetWithOwner[];
@@ -28,6 +31,7 @@ interface PetsClientProps {
 export function PetsClient({ pets, owners }: PetsClientProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<PetWithOwner | null>(null);
 
@@ -89,7 +93,7 @@ export function PetsClient({ pets, owners }: PetsClientProps) {
         <Input
           placeholder="Search pets…"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           className="pl-10 bg-card border-border text-foreground placeholder:text-muted-foreground"
         />
       </div>
@@ -121,7 +125,7 @@ export function PetsClient({ pets, owners }: PetsClientProps) {
                 </TableCell>
               </TableRow>
             ) : (
-              filtered.map((pet) => (
+              filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map((pet) => (
                 <TableRow
                   key={pet.id}
                   className="border-border hover:bg-accent transition-colors"
@@ -185,6 +189,14 @@ export function PetsClient({ pets, owners }: PetsClientProps) {
           </TableBody>
         </Table>
       </div>
+
+      <DataPagination
+        currentPage={page}
+        totalPages={Math.ceil(filtered.length / PAGE_SIZE)}
+        totalItems={filtered.length}
+        pageSize={PAGE_SIZE}
+        onPageChange={setPage}
+      />
 
       <PetDialog
         open={dialogOpen}

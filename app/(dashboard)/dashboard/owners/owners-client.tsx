@@ -18,12 +18,16 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Search, Pencil, Trash2, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { OwnerDialog } from "./owner-dialog";
+import { DataPagination } from "@/components/data-pagination";
+
+const PAGE_SIZE = 15;
 
 type OwnerWithCount = Owner & { pet_count: number };
 
 export function OwnersClient({ owners }: { owners: OwnerWithCount[] }) {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Owner | null>(null);
 
@@ -80,7 +84,7 @@ export function OwnersClient({ owners }: { owners: OwnerWithCount[] }) {
         <Input
           placeholder="Search owners…"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           className="pl-10 bg-card border-border text-foreground placeholder:text-muted-foreground"
         />
       </div>
@@ -110,7 +114,7 @@ export function OwnersClient({ owners }: { owners: OwnerWithCount[] }) {
                 </TableCell>
               </TableRow>
             ) : (
-              filtered.map((owner) => (
+              filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map((owner) => (
                 <TableRow
                   key={owner.id}
                   className="border-border hover:bg-accent transition-colors cursor-pointer"
@@ -170,6 +174,14 @@ export function OwnersClient({ owners }: { owners: OwnerWithCount[] }) {
           </TableBody>
         </Table>
       </div>
+
+      <DataPagination
+        currentPage={page}
+        totalPages={Math.ceil(filtered.length / PAGE_SIZE)}
+        totalItems={filtered.length}
+        pageSize={PAGE_SIZE}
+        onPageChange={setPage}
+      />
 
       <OwnerDialog
         open={dialogOpen}

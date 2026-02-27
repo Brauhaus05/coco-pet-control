@@ -48,7 +48,10 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { InvoiceDialog } from "./invoice-dialog";
+import { DataPagination } from "@/components/data-pagination";
 import { format, differenceInCalendarDays } from "date-fns";
+
+const PAGE_SIZE = 15;
 
 /* ─── Types ─── */
 
@@ -148,6 +151,7 @@ export function InvoicesClient({
 }: InvoicesClientProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("all");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<InvoiceWithOwnerEmail | null>(null);
@@ -311,7 +315,7 @@ export function InvoicesClient({
           <Input
             placeholder="Search invoices…"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => { setSearch(e.target.value); setPage(1); }}
             className="pl-10 bg-card border-border text-foreground placeholder:text-muted-foreground"
           />
         </div>
@@ -393,7 +397,7 @@ export function InvoicesClient({
                   </TableCell>
                 </TableRow>
               ) : (
-                filtered.map((inv) => {
+                filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map((inv) => {
                   const dueBadge = getDueDateInfo(inv);
                   return (
                     <TableRow
@@ -488,6 +492,14 @@ export function InvoicesClient({
           </Table>
         </div>
       )}
+
+      <DataPagination
+        currentPage={page}
+        totalPages={Math.ceil(filtered.length / PAGE_SIZE)}
+        totalItems={filtered.length}
+        pageSize={PAGE_SIZE}
+        onPageChange={setPage}
+      />
 
       <InvoiceDialog
         open={dialogOpen}

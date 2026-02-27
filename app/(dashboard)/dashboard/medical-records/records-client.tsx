@@ -29,6 +29,9 @@ import { Plus, Search, Pencil, Trash2, Image, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { RecordDialog } from "./record-dialog";
 import { format } from "date-fns";
+import { DataPagination } from "@/components/data-pagination";
+
+const PAGE_SIZE = 15;
 
 interface MedicalRecordsClientProps {
   records: MedicalRecordWithPet[];
@@ -46,6 +49,7 @@ export function MedicalRecordsClient({
 }: MedicalRecordsClientProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<MedicalRecordWithPet | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -110,7 +114,7 @@ export function MedicalRecordsClient({
         <Input
           placeholder="Search records…"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           className="pl-10 bg-card border-border text-foreground placeholder:text-muted-foreground"
         />
       </div>
@@ -143,7 +147,7 @@ export function MedicalRecordsClient({
                 </TableCell>
               </TableRow>
             ) : (
-              filtered.map((rec) => (
+              filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map((rec) => (
                 <TableRow
                   key={rec.id}
                   className="border-border hover:bg-accent transition-colors cursor-pointer"
@@ -212,6 +216,14 @@ export function MedicalRecordsClient({
           </TableBody>
         </Table>
       </div>
+
+      <DataPagination
+        currentPage={page}
+        totalPages={Math.ceil(filtered.length / PAGE_SIZE)}
+        totalItems={filtered.length}
+        pageSize={PAGE_SIZE}
+        onPageChange={setPage}
+      />
 
       <RecordDialog
         open={dialogOpen}

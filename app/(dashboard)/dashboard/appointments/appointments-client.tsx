@@ -48,6 +48,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { DataPagination } from "@/components/data-pagination";
+
+const PAGE_SIZE = 15;
 import { toast } from "sonner";
 import { AppointmentDialog } from "./appointment-dialog";
 
@@ -127,6 +130,7 @@ export function AppointmentsClient({
   } | null>(null);
   const [viewMode, setViewMode] = useState<"calendar" | "list">("calendar");
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
@@ -413,7 +417,7 @@ export function AppointmentsClient({
               <Input
                 placeholder="Search by pet, owner, or reason…"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => { setSearch(e.target.value); setPage(1); }}
                 className="pl-10 bg-card border-border text-foreground placeholder:text-muted-foreground"
               />
             </div>
@@ -477,7 +481,7 @@ export function AppointmentsClient({
                     </TableCell>
                   </TableRow>
                 ) : (
-                  filtered.map((apt) => (
+                  filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map((apt) => (
                     <TableRow
                       key={apt.id}
                       className="border-border hover:bg-accent transition-colors cursor-pointer"
@@ -553,6 +557,14 @@ export function AppointmentsClient({
               </TableBody>
             </Table>
           </div>
+
+          <DataPagination
+            currentPage={page}
+            totalPages={Math.ceil(filtered.length / PAGE_SIZE)}
+            totalItems={filtered.length}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+          />
         </>
       )}
 

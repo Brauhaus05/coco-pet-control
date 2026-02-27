@@ -175,16 +175,20 @@ export function InvoiceDialog({
       0
     );
 
-    const invoicePayload = {
+    const invoicePayload: Record<string, unknown> = {
       owner_id: values.owner_id,
       status: values.status,
       issue_date: values.issue_date,
       due_date: values.due_date || null,
       notes: values.notes || null,
-      appointment_id: values.appointment_id || null,
       clinic_id: profile.clinic_id,
       total,
     };
+
+    // Only include appointment_id if user selected one (avoids error when column not yet migrated)
+    if (values.appointment_id && values.appointment_id !== "none") {
+      invoicePayload.appointment_id = values.appointment_id;
+    }
 
     let invoiceId: string;
 

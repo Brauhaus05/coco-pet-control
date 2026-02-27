@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { InvoiceWithOwner } from "@/types/database";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -40,10 +41,16 @@ import {
   Trash2,
   Printer,
   Mail,
+  FileText,
+  DollarSign,
+  Clock,
+  AlertTriangle,
 } from "lucide-react";
 import { toast } from "sonner";
 import { InvoiceDialog } from "./invoice-dialog";
-import { format } from "date-fns";
+import { format, differenceInCalendarDays } from "date-fns";
+
+/* ─── Types ─── */
 
 interface InvoiceItem {
   id: string;
@@ -61,15 +68,77 @@ interface AppointmentOption {
 }
 
 type InvoiceWithOwnerEmail = InvoiceWithOwner & {
-  owners: { first_name: string; last_name: string; email?: string | null } | null;
+  owners: {
+    first_name: string;
+    last_name: string;
+    email?: string | null;
+  } | null;
 };
 
 interface InvoicesClientProps {
   invoices: InvoiceWithOwnerEmail[];
-  owners: { id: string; first_name: string; last_name: string; email?: string | null }[];
+  owners: {
+    id: string;
+    first_name: string;
+    last_name: string;
+    email?: string | null;
+  }[];
   allItems: InvoiceItem[];
   appointments: AppointmentOption[];
 }
+
+/* ─── Helpers ─── */
+
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
+}
+
+const statusColors: Record<string, string> = {
+  draft: "bg-muted text-muted-foreground border-border",
+  sent: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+  paid: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+  overdue: "bg-red-500/10 text-red-600 border-red-500/20",
+  cancelled: "bg-muted text-muted-foreground border-border",
+};
+
+function getDueDateInfo(inv: InvoiceWithOwnerEmail) {
+  if (!inv.due_date || inv.status === "paid" || inv.status === "cancelled")
+    return null;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const due = new Date(inv.due_date);
+  due.setHours(0, 0, 0, 0);
+  const daysUntil = differenceInCalendarDays(due, today);
+
+  if (daysUntil < 0) {
+    return {
+      label: `${Math.abs(daysUntil)}d overdue`,
+      className: "text-red-600 bg-red-500/10 border-red-500/20",
+    };
+  } else if (daysUntil === 0) {
+    return {
+      label: "Due today",
+      className: "text-amber-600 bg-amber-500/10 border-amber-500/20",
+    };
+  } else if (daysUntil <= 3) {
+    return {
+      label: `Due in ${daysUntil}d`,
+      className: "text-amber-600 bg-amber-500/10 border-amber-500/20",
+    };
+  } else if (daysUntil <= 7) {
+    return {
+      label: `Due in ${daysUntil}d`,
+      className: "text-blue-600 bg-blue-500/10 border-blue-500/20",
+    };
+  }
+  return null; // > 7 days out — no indicator
+}
+
+/* ─── Component ─── */
 
 export function InvoicesClient({
   invoices,
@@ -84,11 +153,30 @@ export function InvoicesClient({
   const [editing, setEditing] = useState<InvoiceWithOwnerEmail | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const filtered = invoices.filter((inv) => {
-    // Status filter
-    if (statusFilter !== "all" && inv.status !== statusFilter) return false;
+  /* ── KPI calculations ── */
+  const totalRevenue = invoices
+    .filter((i) => i.status === "paid")
+    .reduce((s, i) => s + Number(i.total), 0);
 
-    // Search filter
+  const outstanding = invoices
+    .filter((i) => i.status === "sent" || i.status === "draft")
+    .reduce((s, i) => s + Number(i.total), 0);
+
+  const overdueCount = invoices.filter((i) => {
+    if (i.status === "overdue") return true;
+    if (
+      i.due_date &&
+      i.status !== "paid" &&
+      i.status !== "cancelled" &&
+      new Date(i.due_date) < new Date()
+    )
+      return true;
+    return false;
+  }).length;
+
+  /* ── Filtering ── */
+  const filtered = invoices.filter((inv) => {
+    if (statusFilter !== "all" && inv.status !== statusFilter) return false;
     const q = search.toLowerCase();
     if (!q) return true;
     const ownerName = inv.owners
@@ -103,6 +191,7 @@ export function InvoicesClient({
     );
   });
 
+  /* ── Actions ── */
   async function confirmDelete() {
     if (!deleteId) return;
     const supabase = createClient();
@@ -118,13 +207,6 @@ export function InvoicesClient({
     setDeleteId(null);
   }
 
-  function formatCurrency(amount: number) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(amount);
-  }
-
   function handleSendEmail(inv: InvoiceWithOwnerEmail) {
     const ownerEmail = inv.owners?.email;
     if (!ownerEmail) {
@@ -133,20 +215,17 @@ export function InvoicesClient({
     }
     const ownerName = `${inv.owners?.first_name} ${inv.owners?.last_name}`;
     const invNum = `INV-${String(inv.invoice_number ?? "").padStart(3, "0")}`;
-    const subject = encodeURIComponent(`Invoice ${invNum} — ${formatCurrency(inv.total)}`);
+    const subject = encodeURIComponent(
+      `Invoice ${invNum} — ${formatCurrency(inv.total)}`
+    );
     const body = encodeURIComponent(
       `Hi ${ownerName},\n\nPlease find attached invoice ${invNum} for ${formatCurrency(inv.total)}.\n\nIssued: ${format(new Date(inv.issue_date), "MMM dd, yyyy")}${inv.due_date ? `\nDue: ${format(new Date(inv.due_date), "MMM dd, yyyy")}` : ""}\n\nThank you!`
     );
-    window.open(`mailto:${ownerEmail}?subject=${subject}&body=${body}`, "_self");
+    window.open(
+      `mailto:${ownerEmail}?subject=${subject}&body=${body}`,
+      "_self"
+    );
   }
-
-  const statusColors: Record<string, string> = {
-    draft: "bg-muted text-muted-foreground border-border",
-    sent: "bg-blue-500/10 text-blue-600 border-blue-500/20",
-    paid: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
-    overdue: "bg-red-500/10 text-red-600 border-red-500/20",
-    cancelled: "bg-muted text-muted-foreground border-border",
-  };
 
   const editingItems = editing
     ? allItems.filter((i) => i.invoice_id === editing.id)
@@ -154,6 +233,7 @@ export function InvoicesClient({
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
@@ -173,6 +253,55 @@ export function InvoicesClient({
           <Plus className="w-4 h-4 mr-2" />
           Create Invoice
         </Button>
+      </div>
+
+      {/* ── Summary Cards ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <Card className="bg-card border-border shadow-sm">
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="rounded-xl bg-emerald-500/10 p-3">
+              <DollarSign className="w-5 h-5 text-emerald-600" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                Total Revenue
+              </p>
+              <p className="text-2xl font-bold text-foreground">
+                {formatCurrency(totalRevenue)}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="bg-card border-border shadow-sm">
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="rounded-xl bg-blue-500/10 p-3">
+              <Clock className="w-5 h-5 text-blue-600" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                Outstanding
+              </p>
+              <p className="text-2xl font-bold text-foreground">
+                {formatCurrency(outstanding)}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="bg-card border-border shadow-sm">
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="rounded-xl bg-red-500/10 p-3">
+              <AlertTriangle className="w-5 h-5 text-red-600" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                Overdue
+              </p>
+              <p className="text-2xl font-bold text-foreground">
+                {overdueCount}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Search + Status filter */}
@@ -210,113 +339,155 @@ export function InvoicesClient({
         </Select>
       </div>
 
-      <div className="rounded-xl border border-border bg-card overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow className="border-border hover:bg-transparent">
-              <TableHead className="text-muted-foreground">
-                Invoice #
-              </TableHead>
-              <TableHead className="text-muted-foreground">Owner</TableHead>
-              <TableHead className="text-muted-foreground">Date</TableHead>
-              <TableHead className="text-muted-foreground">Status</TableHead>
-              <TableHead className="text-muted-foreground">Total</TableHead>
-              <TableHead className="text-muted-foreground text-right">
-                Actions
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filtered.length === 0 ? (
-              <TableRow className="border-border">
-                <TableCell
-                  colSpan={6}
-                  className="text-center py-12 text-muted-foreground"
-                >
-                  {search || statusFilter !== "all"
-                    ? "No invoices match your search."
-                    : "No invoices yet. Click Create Invoice to get started."}
-                </TableCell>
+      {/* ── Table ── */}
+      {invoices.length === 0 && !search && statusFilter === "all" ? (
+        /* Rich empty state */
+        <div className="rounded-xl border border-dashed border-border bg-card p-16 text-center">
+          <div className="mx-auto w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-5">
+            <FileText className="w-8 h-8 text-emerald-600" />
+          </div>
+          <h2 className="text-xl font-semibold text-foreground mb-2">
+            No invoices yet
+          </h2>
+          <p className="text-muted-foreground max-w-md mx-auto mb-6">
+            Create your first invoice to start tracking payments from pet
+            owners. Invoices can include multiple line items and be sent
+            directly via email.
+          </p>
+          <Button
+            onClick={() => {
+              setEditing(null);
+              setDialogOpen(true);
+            }}
+            className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Create your first invoice
+          </Button>
+        </div>
+      ) : (
+        <div className="rounded-xl border border-border bg-card overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-border hover:bg-transparent">
+                <TableHead className="text-muted-foreground">
+                  Invoice #
+                </TableHead>
+                <TableHead className="text-muted-foreground">Owner</TableHead>
+                <TableHead className="text-muted-foreground">Date</TableHead>
+                <TableHead className="text-muted-foreground">Status</TableHead>
+                <TableHead className="text-muted-foreground">Total</TableHead>
+                <TableHead className="text-muted-foreground text-right">
+                  Actions
+                </TableHead>
               </TableRow>
-            ) : (
-              filtered.map((inv) => (
-                <TableRow
-                  key={inv.id}
-                  className="border-border hover:bg-accent transition-colors"
-                >
-                  <TableCell className="font-mono text-foreground text-xs font-semibold">
-                    INV-{String(inv.invoice_number ?? "").padStart(3, "0")}
-                  </TableCell>
-                  <TableCell className="font-medium text-foreground">
-                    {inv.owners
-                      ? `${inv.owners.first_name} ${inv.owners.last_name}`
-                      : "—"}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {format(new Date(inv.issue_date), "MMM dd, yyyy")}
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={`capitalize ${statusColors[inv.status] ?? ""}`}
-                    >
-                      {inv.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-foreground font-medium">
-                    {formatCurrency(inv.total)}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                        title="Send via email"
-                        onClick={() => handleSendEmail(inv)}
-                      >
-                        <Mail className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                        title="Print / PDF"
-                        asChild
-                      >
-                        <Link href={`/dashboard/invoices/${inv.id}/print`}>
-                          <Printer className="w-4 h-4" />
-                        </Link>
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                        title="Edit"
-                        onClick={() => {
-                          setEditing(inv);
-                          setDialogOpen(true);
-                        }}
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-red-400"
-                        title="Delete"
-                        onClick={() => setDeleteId(inv.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
+            </TableHeader>
+            <TableBody>
+              {filtered.length === 0 ? (
+                <TableRow className="border-border">
+                  <TableCell
+                    colSpan={6}
+                    className="text-center py-12 text-muted-foreground"
+                  >
+                    No invoices match your filters.
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              ) : (
+                filtered.map((inv) => {
+                  const dueBadge = getDueDateInfo(inv);
+                  return (
+                    <TableRow
+                      key={inv.id}
+                      className="border-border hover:bg-accent transition-colors"
+                    >
+                      <TableCell className="font-mono text-foreground text-xs font-semibold">
+                        INV-
+                        {String(inv.invoice_number ?? "").padStart(3, "0")}
+                      </TableCell>
+                      <TableCell className="font-medium text-foreground">
+                        {inv.owners
+                          ? `${inv.owners.first_name} ${inv.owners.last_name}`
+                          : "—"}
+                      </TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {format(new Date(inv.issue_date), "MMM dd, yyyy")}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Badge
+                            variant="outline"
+                            className={`capitalize ${statusColors[inv.status] ?? ""}`}
+                          >
+                            {inv.status}
+                          </Badge>
+                          {dueBadge && (
+                            <Badge
+                              variant="outline"
+                              className={`text-[10px] px-1.5 py-0 ${dueBadge.className}`}
+                            >
+                              {dueBadge.label}
+                            </Badge>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-foreground font-medium">
+                        {formatCurrency(inv.total)}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                            title="Send via email"
+                            onClick={() => handleSendEmail(inv)}
+                          >
+                            <Mail className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                            title="Print / PDF"
+                            asChild
+                          >
+                            <Link
+                              href={`/dashboard/invoices/${inv.id}/print`}
+                            >
+                              <Printer className="w-4 h-4" />
+                            </Link>
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                            title="Edit"
+                            onClick={() => {
+                              setEditing(inv);
+                              setDialogOpen(true);
+                            }}
+                          >
+                            <Pencil className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-muted-foreground hover:text-red-400"
+                            title="Delete"
+                            onClick={() => setDeleteId(inv.id)}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      )}
 
       <InvoiceDialog
         open={dialogOpen}

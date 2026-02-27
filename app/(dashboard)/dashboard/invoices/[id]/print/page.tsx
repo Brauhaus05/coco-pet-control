@@ -139,7 +139,19 @@ export default async function InvoicePrintPage({
               )}
               <div>
                 <span className="text-zinc-400">Status: </span>
-                <span className="font-semibold capitalize text-zinc-800">
+                <span
+                  className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold capitalize ${
+                    invoice.status === "paid"
+                      ? "bg-emerald-100 text-emerald-700"
+                      : invoice.status === "overdue"
+                        ? "bg-red-100 text-red-700"
+                        : invoice.status === "sent"
+                          ? "bg-blue-100 text-blue-700"
+                          : invoice.status === "cancelled"
+                            ? "bg-zinc-200 text-zinc-500"
+                            : "bg-zinc-100 text-zinc-600"
+                  }`}
+                >
                   {invoice.status}
                 </span>
               </div>

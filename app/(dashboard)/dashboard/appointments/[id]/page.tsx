@@ -10,32 +10,47 @@ export default async function AppointmentSummaryPage({
   const { id } = await params;
   const supabase = await createClient();
 
-  /* ── Fetch the appointment with all related data ── */
-  const [appointmentRes, profilesRes] = await Promise.all([
-    supabase
-      .from("appointments")
-      .select(
-        `*,
-        pets(
-          id, name, species, breed, date_of_birth, sex, weight_kg,
-          owners(id, first_name, last_name, email, phone, address)
-        ),
-        profiles:vet_id(id, full_name, role)`
-      )
-      .eq("id", id)
-      .single(),
-    supabase
-      .from("profiles")
-      .select("id, full_name, role")
-      .order("full_name"),
-  ]);
+  /* ── Parallel data fetching ── */
+  const [appointmentRes, vitalsRes, prescriptionsRes, recommendationsRes] =
+    await Promise.all([
+      supabase
+        .from("appointments")
+        .select(
+          `*,
+          pets(
+            id, name, species, breed, date_of_birth, sex, weight_kg,
+            owners(id, first_name, last_name, email, phone, address)
+          ),
+          profiles:vet_id(id, full_name, role)`
+        )
+        .eq("id", id)
+        .single(),
+      supabase
+        .from("appointment_vitals")
+        .select("*")
+        .eq("appointment_id", id)
+        .order("created_at", { ascending: false })
+        .limit(1),
+      supabase
+        .from("appointment_prescriptions")
+        .select("*")
+        .eq("appointment_id", id)
+        .order("created_at", { ascending: true }),
+      supabase
+        .from("appointment_recommendations")
+        .select("*")
+        .eq("appointment_id", id)
+        .order("created_at", { ascending: true }),
+    ]);
 
   if (!appointmentRes.data) return notFound();
 
   return (
     <AppointmentSummaryClient
       appointment={appointmentRes.data as any}
-      vets={(profilesRes.data as any[]) ?? []}
+      vitals={(vitalsRes.data as any[]) ?? []}
+      prescriptions={(prescriptionsRes.data as any[]) ?? []}
+      recommendations={(recommendationsRes.data as any[]) ?? []}
     />
   );
 }

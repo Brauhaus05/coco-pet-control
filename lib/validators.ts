@@ -44,6 +44,7 @@ export const appointmentSchema = z
     notes: z.string().optional(),
     status: z.enum(["scheduled", "completed", "cancelled", "no-show"]),
     vet_id: z.string().optional(),
+    room: z.string().optional(),
   })
   .refine(
     (data) => {
@@ -57,6 +58,32 @@ export const appointmentSchema = z
   );
 
 export type AppointmentFormValues = z.infer<typeof appointmentSchema>;
+
+export const vitalsSchema = z.object({
+  weight_lbs: z.number().positive("Must be positive").optional(),
+  temperature_f: z.number().min(90).max(115).optional(),
+  heart_rate_bpm: z.number().int().positive().optional(),
+});
+
+export type VitalsFormValues = z.infer<typeof vitalsSchema>;
+
+export const prescriptionSchema = z.object({
+  item_name: z.string().min(1, "Item name is required"),
+  type: z.enum(["vaccination", "prescription", "procedure", "other"]),
+  dosage_instructions: z.string().optional(),
+  quantity: z.string().optional(),
+  status: z.enum(["administered", "dispensed", "pending", "cancelled"]),
+});
+
+export type PrescriptionFormValues = z.infer<typeof prescriptionSchema>;
+
+export const recommendationSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().optional(),
+  priority: z.enum(["routine", "important", "urgent"]),
+});
+
+export type RecommendationFormValues = z.infer<typeof recommendationSchema>;
 
 export const invoiceSchema = z
   .object({

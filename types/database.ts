@@ -65,6 +65,37 @@ export type Appointment = {
   reason: string | null;
   notes: string | null;
   status: "scheduled" | "completed" | "cancelled" | "no-show";
+  room: string | null;
+  appointment_number: number | null;
+  created_at: string;
+};
+
+export type AppointmentVitals = {
+  id: string;
+  appointment_id: string;
+  weight_lbs: number | null;
+  temperature_f: number | null;
+  heart_rate_bpm: number | null;
+  created_at: string;
+};
+
+export type AppointmentPrescription = {
+  id: string;
+  appointment_id: string;
+  item_name: string;
+  type: "vaccination" | "prescription" | "procedure" | "other";
+  dosage_instructions: string | null;
+  quantity: string | null;
+  status: "administered" | "dispensed" | "pending" | "cancelled";
+  created_at: string;
+};
+
+export type AppointmentRecommendation = {
+  id: string;
+  appointment_id: string;
+  title: string;
+  description: string | null;
+  priority: "routine" | "important" | "urgent";
   created_at: string;
 };
 
@@ -105,6 +136,16 @@ export type AppointmentWithPet = Appointment & {
   pets: Pick<Pet, "name"> & {
     owners: Pick<Owner, "first_name" | "last_name"> | null;
   };
+};
+
+export type AppointmentWithDetails = Appointment & {
+  pets: (Pick<Pet, "id" | "name" | "species" | "breed" | "date_of_birth" | "sex" | "weight_kg"> & {
+    owners: Pick<Owner, "id" | "first_name" | "last_name" | "email" | "phone" | "address"> | null;
+  }) | null;
+  profiles: Pick<Profile, "id" | "full_name" | "role"> | null;
+  appointment_vitals: AppointmentVitals[];
+  appointment_prescriptions: AppointmentPrescription[];
+  appointment_recommendations: AppointmentRecommendation[];
 };
 
 export type InvoiceWithOwner = Invoice & {

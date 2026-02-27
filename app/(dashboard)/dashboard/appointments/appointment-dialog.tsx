@@ -113,6 +113,7 @@ export function AppointmentDialog({
       notes: appointment?.notes ?? "",
       status: appointment?.status ?? "scheduled",
       vet_id: appointment?.vet_id ?? "",
+      room: (appointment as any)?.room ?? "",
     };
   }
 
@@ -159,6 +160,9 @@ export function AppointmentDialog({
     // Only include notes if non-empty (column may not exist in all environments)
     if (values.notes) {
       payload.notes = values.notes;
+    }
+    if (values.room) {
+      payload.room = values.room;
     }
 
     if (isEditing) {
@@ -336,6 +340,25 @@ export function AppointmentDialog({
                     <Input
                       {...field}
                       placeholder="e.g. Annual checkup"
+                      className="bg-muted border-border text-foreground"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Room */}
+            <FormField
+              control={form.control}
+              name="room"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-foreground">Room</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="e.g. Exam Room 3"
                       className="bg-muted border-border text-foreground"
                     />
                   </FormControl>

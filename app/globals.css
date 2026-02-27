@@ -113,3 +113,60 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ─── react-big-calendar light theme ─── */
+.calendar-light .rbc-calendar {
+  color: oklch(0.25 0.02 136.6);
+}
+.calendar-light .rbc-toolbar button {
+  color: oklch(0.45 0.02 136.6);
+  border-color: oklch(0.935 0.023 128.5);
+  background: transparent;
+}
+.calendar-light .rbc-toolbar button:hover,
+.calendar-light .rbc-toolbar button.rbc-active {
+  background: oklch(0.935 0.023 128.5);
+  color: oklch(0.25 0.02 136.6);
+  border-color: oklch(0.935 0.023 128.5);
+}
+.calendar-light .rbc-header {
+  border-color: oklch(0.935 0.023 128.5);
+  color: oklch(0.45 0.02 136.6);
+  padding: 8px 4px;
+  font-weight: 500;
+}
+.calendar-light .rbc-month-view,
+.calendar-light .rbc-time-view {
+  border-color: oklch(0.935 0.023 128.5);
+}
+.calendar-light .rbc-day-bg {
+  border-color: oklch(0.935 0.023 128.5);
+}
+.calendar-light .rbc-off-range-bg {
+  background: oklch(0.96 0.01 136.6);
+}
+.calendar-light .rbc-today {
+  background: rgba(16, 185, 129, 0.06);
+}
+.calendar-light .rbc-month-row,
+.calendar-light .rbc-time-content,
+.calendar-light .rbc-timeslot-group {
+  border-color: oklch(0.935 0.023 128.5);
+}
+.calendar-light .rbc-time-header-content {
+  border-color: oklch(0.935 0.023 128.5);
+}
+.calendar-light .rbc-time-slot {
+  border-color: oklch(0.96 0.01 136.6);
+}
+.calendar-light .rbc-label {
+  color: oklch(0.45 0.02 136.6);
+  font-size: 0.75rem;
+}
+.calendar-light .rbc-current-time-indicator {
+  background: #10b981;
+}
+.calendar-light .rbc-show-more {
+  color: #10b981;
+}
+

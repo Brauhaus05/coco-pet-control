@@ -35,13 +35,26 @@ export const medicalRecordSchema = z.object({
 
 export type MedicalRecordFormValues = z.infer<typeof medicalRecordSchema>;
 
-export const appointmentSchema = z.object({
-  pet_id: z.string().min(1, "Pet is required"),
-  start_time: z.string().min(1, "Start time is required"),
-  end_time: z.string().min(1, "End time is required"),
-  reason: z.string().optional(),
-  status: z.enum(["scheduled", "completed", "cancelled", "no-show"]),
-});
+export const appointmentSchema = z
+  .object({
+    pet_id: z.string().min(1, "Pet is required"),
+    start_time: z.string().min(1, "Start time is required"),
+    end_time: z.string().min(1, "End time is required"),
+    reason: z.string().optional(),
+    notes: z.string().optional(),
+    status: z.enum(["scheduled", "completed", "cancelled", "no-show"]),
+    vet_id: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      if (!data.start_time || !data.end_time) return true;
+      return new Date(data.end_time) > new Date(data.start_time);
+    },
+    {
+      message: "End time must be after start time",
+      path: ["end_time"],
+    }
+  );
 
 export type AppointmentFormValues = z.infer<typeof appointmentSchema>;
 

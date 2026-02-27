@@ -63,6 +63,7 @@ export type Appointment = {
   start_time: string;
   end_time: string;
   reason: string | null;
+  notes: string | null;
   status: "scheduled" | "completed" | "cancelled" | "no-show";
   created_at: string;
 };

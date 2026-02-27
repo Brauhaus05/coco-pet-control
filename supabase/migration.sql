@@ -89,9 +89,11 @@ CREATE TABLE public.appointments (
     start_time  TIMESTAMPTZ NOT NULL,
     end_time    TIMESTAMPTZ NOT NULL,
     reason      TEXT,
+    notes       TEXT,
     status      TEXT NOT NULL DEFAULT 'scheduled'
                     CHECK (status IN ('scheduled', 'completed', 'cancelled', 'no-show')),
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT valid_time_range CHECK (end_time > start_time)
 );
 
 -- ============================================================

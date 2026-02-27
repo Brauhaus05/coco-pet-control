@@ -395,6 +395,14 @@ export function AppointmentSummaryClient({
             Back to Appointments
           </Button>
           <Button
+            variant="outline"
+            className="border-border text-foreground hover:bg-accent"
+            onClick={() => router.push(`/dashboard/appointments/${apt.id}/print`)}
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            Print Summary
+          </Button>
+          <Button
             className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white shadow-lg shadow-orange-500/20"
             onClick={() => {
               const followUpDate = new Date();

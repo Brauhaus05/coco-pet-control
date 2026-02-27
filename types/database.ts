@@ -72,6 +72,8 @@ export type Invoice = {
   id: string;
   clinic_id: string;
   owner_id: string;
+  appointment_id: string | null;
+  invoice_number: number;
   status: "draft" | "sent" | "paid" | "overdue" | "cancelled";
   total: number;
   issue_date: string;

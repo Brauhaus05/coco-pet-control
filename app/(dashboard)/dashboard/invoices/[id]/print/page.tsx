@@ -88,7 +88,7 @@ export default async function InvoicePrintPage({
             <div>
               <h1 className="text-3xl font-bold text-zinc-900">INVOICE</h1>
               <p className="text-sm text-zinc-500 mt-1 font-mono">
-                #{id.slice(0, 8).toUpperCase()}
+                INV-{String(invoice.invoice_number ?? "").padStart(3, "0")}
               </p>
             </div>
             <div className="text-right text-sm text-zinc-600">

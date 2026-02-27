@@ -58,13 +58,25 @@ export const appointmentSchema = z
 
 export type AppointmentFormValues = z.infer<typeof appointmentSchema>;
 
-export const invoiceSchema = z.object({
-  owner_id: z.string().min(1, "Owner is required"),
-  status: z.enum(["draft", "sent", "paid", "overdue", "cancelled"]),
-  issue_date: z.string().min(1, "Issue date is required"),
-  due_date: z.string().optional(),
-  notes: z.string().optional(),
-});
+export const invoiceSchema = z
+  .object({
+    owner_id: z.string().min(1, "Owner is required"),
+    status: z.enum(["draft", "sent", "paid", "overdue", "cancelled"]),
+    issue_date: z.string().min(1, "Issue date is required"),
+    due_date: z.string().optional(),
+    notes: z.string().optional(),
+    appointment_id: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      if (!data.due_date || !data.issue_date) return true;
+      return new Date(data.due_date) >= new Date(data.issue_date);
+    },
+    {
+      message: "Due date must be on or after issue date",
+      path: ["due_date"],
+    }
+  );
 
 export type InvoiceFormValues = z.infer<typeof invoiceSchema>;
 

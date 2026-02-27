@@ -100,16 +100,18 @@ CREATE TABLE public.appointments (
 -- 7. INVOICES
 -- ============================================================
 CREATE TABLE public.invoices (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    clinic_id   UUID NOT NULL REFERENCES public.clinics(id) ON DELETE CASCADE,
-    owner_id    UUID NOT NULL REFERENCES public.owners(id) ON DELETE CASCADE,
-    status      TEXT NOT NULL DEFAULT 'draft'
-                    CHECK (status IN ('draft', 'sent', 'paid', 'overdue', 'cancelled')),
-    total       NUMERIC(10, 2) NOT NULL DEFAULT 0,
-    issue_date  DATE NOT NULL DEFAULT CURRENT_DATE,
-    due_date    DATE,
-    notes       TEXT,
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    clinic_id       UUID NOT NULL REFERENCES public.clinics(id) ON DELETE CASCADE,
+    owner_id        UUID NOT NULL REFERENCES public.owners(id) ON DELETE CASCADE,
+    appointment_id  UUID REFERENCES public.appointments(id) ON DELETE SET NULL,
+    invoice_number  SERIAL NOT NULL,
+    status          TEXT NOT NULL DEFAULT 'draft'
+                        CHECK (status IN ('draft', 'sent', 'paid', 'overdue', 'cancelled')),
+    total           NUMERIC(10, 2) NOT NULL DEFAULT 0,
+    issue_date      DATE NOT NULL DEFAULT CURRENT_DATE,
+    due_date        DATE,
+    notes           TEXT,
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 -- ============================================================
@@ -138,6 +140,7 @@ CREATE INDEX idx_appointments_pet       ON public.appointments(pet_id);
 CREATE INDEX idx_appointments_time      ON public.appointments(start_time);
 CREATE INDEX idx_invoices_clinic        ON public.invoices(clinic_id);
 CREATE INDEX idx_invoices_owner         ON public.invoices(owner_id);
+CREATE INDEX idx_invoices_number        ON public.invoices(invoice_number);
 CREATE INDEX idx_invoice_items_invoice  ON public.invoice_items(invoice_id);
 
 -- ============================================================

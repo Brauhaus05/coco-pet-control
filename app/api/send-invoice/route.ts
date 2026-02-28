@@ -89,7 +89,7 @@ export async function POST(request: Request) {
     const html = `
     <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
       <!-- Header -->
-      <div style="background: linear-gradient(135deg, #059669, #0d9488); padding: 32px; border-radius: 12px 12px 0 0;">
+      <div style="background: linear-gradient(135deg, #ea580c, #d97706); padding: 32px; border-radius: 12px 12px 0 0;">
         <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 700;">${clinicName}</h1>
         <p style="margin: 8px 0 0; color: rgba(255,255,255,0.8); font-size: 14px;">Invoice ${invNum}</p>
       </div>

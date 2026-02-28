@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +20,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { formatCurrency } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
 
 /* ─── Types ─── */
 
@@ -49,6 +52,42 @@ interface RecordData {
 export function RecordDetailClient({ record }: { record: RecordData }) {
   const pet = record.pets;
   const owner = pet?.owners;
+
+  // Generate signed URLs for private bucket images
+  const [signedUrls, setSignedUrls] = useState<Record<number, string>>({});
+
+  useEffect(() => {
+    if (record.image_urls.length === 0) return;
+
+    const supabase = createClient();
+
+    async function generateSignedUrls() {
+      const urls: Record<number, string> = {};
+
+      for (let i = 0; i < record.image_urls.length; i++) {
+        const stored = record.image_urls[i];
+
+        // If it's already a full URL (legacy data), use as-is
+        if (stored.startsWith("http")) {
+          urls[i] = stored;
+          continue;
+        }
+
+        // Otherwise it's a file path — generate a signed URL (1 hour)
+        const { data } = await supabase.storage
+          .from("medical-images")
+          .createSignedUrl(stored, 3600);
+
+        if (data?.signedUrl) {
+          urls[i] = data.signedUrl;
+        }
+      }
+
+      setSignedUrls(urls);
+    }
+
+    generateSignedUrls();
+  }, [record.image_urls]);
 
 
 
@@ -233,10 +272,12 @@ export function RecordDetailClient({ record }: { record: RecordData }) {
               {record.image_urls.map((url, i) => (
                 <a
                   key={i}
-                  href={url}
+                  href={signedUrls[i] ?? "#"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-lg border border-border overflow-hidden hover:border-indigo-500/30 transition-colors"
+                  className={`rounded-lg border border-border overflow-hidden hover:border-indigo-500/30 transition-colors ${
+                    !signedUrls[i] ? "pointer-events-none opacity-50" : ""
+                  }`}
                 >
                   <div className="aspect-square bg-muted flex items-center justify-center">
                     <ImageIcon className="w-8 h-8 text-muted-foreground/30" />

@@ -111,11 +111,9 @@ export function RecordDialog({
         continue;
       }
 
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("medical-images").getPublicUrl(filePath);
-
-      setImageUrls((prev) => [...prev, publicUrl]);
+      // Store the file path (not a public URL) since the bucket is private.
+      // Signed URLs are generated at display time.
+      setImageUrls((prev) => [...prev, filePath]);
     }
 
     setUploading(false);

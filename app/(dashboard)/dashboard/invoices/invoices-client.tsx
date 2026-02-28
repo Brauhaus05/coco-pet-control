@@ -211,24 +211,37 @@ export function InvoicesClient({
     setDeleteId(null);
   }
 
-  function handleSendEmail(inv: InvoiceWithOwnerEmail) {
+  const [sending, setSending] = useState<string | null>(null);
+
+  async function handleSendEmail(inv: InvoiceWithOwnerEmail) {
     const ownerEmail = inv.owners?.email;
     if (!ownerEmail) {
       toast.error("This owner has no email address on file.");
       return;
     }
-    const ownerName = `${inv.owners?.first_name} ${inv.owners?.last_name}`;
-    const invNum = `INV-${String(inv.invoice_number ?? "").padStart(3, "0")}`;
-    const subject = encodeURIComponent(
-      `Invoice ${invNum} — ${formatCurrency(inv.total)}`
-    );
-    const body = encodeURIComponent(
-      `Hi ${ownerName},\n\nPlease find attached invoice ${invNum} for ${formatCurrency(inv.total)}.\n\nIssued: ${format(new Date(inv.issue_date), "MMM dd, yyyy")}${inv.due_date ? `\nDue: ${format(new Date(inv.due_date), "MMM dd, yyyy")}` : ""}\n\nThank you!`
-    );
-    window.open(
-      `mailto:${ownerEmail}?subject=${subject}&body=${body}`,
-      "_self"
-    );
+
+    setSending(inv.id);
+    try {
+      const res = await fetch("/api/send-invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ invoiceId: inv.id }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error ?? "Failed to send email");
+        return;
+      }
+
+      toast.success(data.message ?? `Invoice sent to ${ownerEmail}`);
+      router.refresh(); // Refresh to pick up status change (draft → sent)
+    } catch {
+      toast.error("Network error — please try again");
+    } finally {
+      setSending(null);
+    }
   }
 
   const editingItems = editing
@@ -444,9 +457,14 @@ export function InvoicesClient({
                             size="icon"
                             className="h-8 w-8 text-muted-foreground hover:text-foreground"
                             title="Send via email"
+                            disabled={sending === inv.id}
                             onClick={() => handleSendEmail(inv)}
                           >
-                            <Mail className="w-4 h-4" />
+                            {sending === inv.id ? (
+                              <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                            ) : (
+                              <Mail className="w-4 h-4" />
+                            )}
                           </Button>
                           <Button
                             variant="ghost"

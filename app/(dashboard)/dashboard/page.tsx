@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { formatCurrency } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -205,12 +206,7 @@ export default async function DashboardPage() {
     appointment: CalendarDays,
   };
 
-  function formatCurrency(amount: number) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(amount);
-  }
+
 
   return (
     <div className="space-y-8">

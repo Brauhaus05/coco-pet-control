@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import {
   ChevronRight,
-  Pencil,
+  ArrowLeft,
   Plus,
   AlertTriangle,
   Syringe,
@@ -173,9 +173,9 @@ export function PetProfileClient({
             className="border-border text-foreground hover:bg-accent"
             asChild
           >
-            <Link href={`/dashboard/pets`}>
-              <Pencil className="w-4 h-4 mr-2" />
-              Edit Profile
+            <Link href="/dashboard/pets">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Pets
             </Link>
           </Button>
           <Button

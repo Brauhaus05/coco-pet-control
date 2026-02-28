@@ -23,8 +23,8 @@ export default async function AppointmentsPage() {
     id: p.id as string,
     name: p.name as string,
     owner_id: p.owner_id as string,
-    owners: Array.isArray(p.owners) && p.owners.length > 0
-      ? (p.owners[0] as { first_name: string; last_name: string })
+    owners: p.owners
+      ? (p.owners as { first_name: string; last_name: string })
       : null,
   }));
 

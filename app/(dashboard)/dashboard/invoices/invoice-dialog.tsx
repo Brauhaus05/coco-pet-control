@@ -34,6 +34,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import { formatCurrency } from "@/lib/utils";
 
 /* ─── Schema with embedded line items ─── */
 const lineItemSchema = z.object({
@@ -85,12 +86,7 @@ interface InvoiceDialogProps {
   }[];
 }
 
-function formatCurrency(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
-}
+
 
 export function InvoiceDialog({
   open,

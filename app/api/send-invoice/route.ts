@@ -1,14 +1,10 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { Resend } from "resend";
+import { formatCurrency } from "@/lib/utils";
 import { format } from "date-fns";
 
-function formatCurrency(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
-}
+
 
 export async function POST(request: Request) {
   try {

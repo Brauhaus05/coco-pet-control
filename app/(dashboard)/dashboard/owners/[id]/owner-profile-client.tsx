@@ -63,7 +63,7 @@ interface InvoiceData {
   status: string;
   issue_date: string;
   due_date: string | null;
-  tax_rate: number;
+  total: number;
   notes: string | null;
 }
 

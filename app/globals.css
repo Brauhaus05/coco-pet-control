@@ -50,10 +50,10 @@
 :root {
   --radius: 0.625rem;
 
-  /* Backgrounds: #F6FEED */
-  --background: oklch(0.982 0.023 136.6);
-  --card: oklch(0.982 0.023 136.6);
-  --popover: oklch(0.982 0.023 136.6);
+  /* Backgrounds: #FDFFF4 */
+  --background: oklch(0.997 0.015 136.6);
+  --card: oklch(1 0.005 136.6);
+  --popover: oklch(1 0.005 136.6);
 
   /* Base Text: Dark slate-green for high contrast */
   --foreground: oklch(0.25 0.02 136.6);
@@ -93,7 +93,7 @@
   --chart-5: oklch(0.769 0.188 70.08);
 
   /* Sidebar variations mirroring the main theme */
-  --sidebar-background: oklch(0.982 0.023 136.6);
+  --sidebar-background: oklch(0.997 0.015 136.6);
   --sidebar-foreground: oklch(0.25 0.02 136.6);
   --sidebar-primary: oklch(0.628 0.177 42.6);
   --sidebar-primary-foreground: oklch(0.985 0 0);

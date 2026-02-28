@@ -19,13 +19,13 @@ export default async function OwnerProfilePage({
       .order("name"),
     supabase
       .from("appointments")
-      .select("id, start_time, end_time, reason, status, pets(name), profiles:vet_id(full_name)")
+      .select("id, start_time, end_time, reason, status, pets!inner(name, owner_id), profiles:vet_id(full_name)")
       .eq("pets.owner_id", id)
       .order("start_time", { ascending: false })
       .limit(10),
     supabase
       .from("invoices")
-      .select("id, status, issue_date, due_date, tax_rate, notes")
+      .select("id, status, issue_date, due_date, total, notes")
       .eq("owner_id", id)
       .order("issue_date", { ascending: false })
       .limit(10),

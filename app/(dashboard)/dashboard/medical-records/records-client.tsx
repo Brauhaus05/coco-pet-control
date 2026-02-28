@@ -30,6 +30,7 @@ import { toast } from "sonner";
 import { RecordDialog } from "./record-dialog";
 import { format } from "date-fns";
 import { DataPagination } from "@/components/data-pagination";
+import { formatCurrency } from "@/lib/utils";
 
 const PAGE_SIZE = 15;
 
@@ -79,12 +80,7 @@ export function MedicalRecordsClient({
     setDeleteId(null);
   }
 
-  function formatCurrency(amount: number) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(amount);
-  }
+
 
   return (
     <div className="space-y-6">

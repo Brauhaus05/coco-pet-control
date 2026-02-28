@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
+import { formatCurrency } from "@/lib/utils";
 import { PrintButton } from "./print-button";
 
 export default async function InvoicePrintPage({
@@ -36,12 +37,7 @@ export default async function InvoicePrintPage({
     0
   );
 
-  function formatCurrency(amount: number) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(amount);
-  }
+
 
   return (
     <>

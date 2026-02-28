@@ -50,6 +50,7 @@ import { toast } from "sonner";
 import { InvoiceDialog } from "./invoice-dialog";
 import { DataPagination } from "@/components/data-pagination";
 import { format, differenceInCalendarDays } from "date-fns";
+import { formatCurrency } from "@/lib/utils";
 
 const PAGE_SIZE = 15;
 
@@ -92,12 +93,7 @@ interface InvoicesClientProps {
 
 /* ─── Helpers ─── */
 
-function formatCurrency(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
-}
+
 
 const statusColors: Record<string, string> = {
   draft: "bg-muted text-muted-foreground border-border",

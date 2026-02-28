@@ -14,10 +14,10 @@ import {
   DollarSign,
   AlertCircle,
   Pill,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Image as ImageIcon,
 } from "lucide-react";
 import { format } from "date-fns";
+import { formatCurrency } from "@/lib/utils";
 
 /* ─── Types ─── */
 
@@ -27,7 +27,7 @@ interface RecordData {
   chief_complaint: string | null;
   diagnosis: string | null;
   treatment: string | null;
-  prescriptions: string | null;
+  notes: string | null;
   cost: number;
   image_urls: string[];
   created_at: string;
@@ -50,12 +50,7 @@ export function RecordDetailClient({ record }: { record: RecordData }) {
   const pet = record.pets;
   const owner = pet?.owners;
 
-  function formatCurrency(amount: number) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(amount);
-  }
+
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
@@ -204,17 +199,17 @@ export function RecordDetailClient({ record }: { record: RecordData }) {
               </div>
             </div>
 
-            {/* Prescriptions */}
+            {/* Notes */}
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Pill className="w-4 h-4 text-rose-500" />
                 <p className="text-sm font-semibold text-foreground">
-                  Prescriptions
+                  Notes
                 </p>
               </div>
               <div className="p-3 rounded-lg bg-muted/50 border border-border">
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
-                  {record.prescriptions || "No prescriptions recorded."}
+                  {record.notes || "No notes recorded."}
                 </p>
               </div>
             </div>

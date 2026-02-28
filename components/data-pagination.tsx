@@ -96,7 +96,7 @@ export function DataPagination({
               size="icon"
               className={`h-8 w-8 text-sm ${
                 page === currentPage
-                  ? "bg-emerald-600 text-white hover:bg-emerald-500"
+                  ? "bg-orange-600 text-white hover:bg-orange-500"
                   : "text-muted-foreground hover:text-foreground"
               }`}
               onClick={() => onPageChange(page)}

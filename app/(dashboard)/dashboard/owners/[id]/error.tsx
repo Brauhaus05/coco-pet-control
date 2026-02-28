@@ -35,7 +35,7 @@ export default function ModuleError({
       <div className="flex gap-3">
         <Button
           onClick={reset}
-          className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white"
+          className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white"
         >
           <RotateCcw className="w-4 h-4 mr-2" />
           Try Again

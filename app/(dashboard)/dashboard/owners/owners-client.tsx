@@ -71,7 +71,7 @@ export function OwnersClient({ owners }: { owners: OwnerWithCount[] }) {
             setEditing(null);
             setDialogOpen(true);
           }}
-          className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20"
+          className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-500/20"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Owner

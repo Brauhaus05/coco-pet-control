@@ -50,37 +50,37 @@
 :root {
   --radius: 0.625rem;
 
-  /* Backgrounds: #FDFFF4 */
-  --background: oklch(0.997 0.015 136.6);
-  --card: oklch(1 0.005 136.6);
-  --popover: oklch(1 0.005 136.6);
+  /* Backgrounds: warm cream */
+  --background: oklch(0.98 0.012 75);
+  --card: oklch(0.995 0.005 75);
+  --popover: oklch(0.995 0.005 75);
 
-  /* Base Text: Dark slate-green for high contrast */
-  --foreground: oklch(0.25 0.02 136.6);
-  --card-foreground: oklch(0.25 0.02 136.6);
-  --popover-foreground: oklch(0.25 0.02 136.6);
+  /* Base Text: warm dark brown for high contrast */
+  --foreground: oklch(0.25 0.02 60);
+  --card-foreground: oklch(0.25 0.02 60);
+  --popover-foreground: oklch(0.25 0.02 60);
 
   /* Primary Brand: #E25A31 */
   --primary: oklch(0.628 0.177 42.6);
   /* Text on Primary: Pure white for readability on the orange */
   --primary-foreground: oklch(0.985 0 0);
 
-  /* Secondary / Muted Surfaces: #EBECDC */
-  --secondary: oklch(0.935 0.023 128.5);
-  --muted: oklch(0.935 0.023 128.5);
-  --accent: oklch(0.935 0.023 128.5);
+  /* Secondary / Muted Surfaces: soft tan */
+  --secondary: oklch(0.93 0.02 75);
+  --muted: oklch(0.93 0.02 75);
+  --accent: oklch(0.93 0.02 75);
 
-  /* Text on Secondary/Muted: Derived medium-dark slate */
-  --secondary-foreground: oklch(0.35 0.02 136.6);
-  --muted-foreground: oklch(0.45 0.02 136.6);
-  --accent-foreground: oklch(0.25 0.02 136.6);
+  /* Text on Secondary/Muted: warm medium-dark brown */
+  --secondary-foreground: oklch(0.35 0.02 60);
+  --muted-foreground: oklch(0.45 0.02 60);
+  --accent-foreground: oklch(0.25 0.02 60);
 
   /* Destructive */
   --destructive: oklch(0.577 0.245 27.325);
 
-  /* UI Elements using #EBECDC */
-  --border: oklch(0.935 0.023 128.5);
-  --input: oklch(0.935 0.023 128.5);
+  /* UI Elements: soft tan borders */
+  --border: oklch(0.93 0.02 75);
+  --input: oklch(0.93 0.02 75);
 
   /* Focus Rings using #E25A31 */
   --ring: oklch(0.628 0.177 42.6);
@@ -93,13 +93,13 @@
   --chart-5: oklch(0.769 0.188 70.08);
 
   /* Sidebar variations mirroring the main theme */
-  --sidebar-background: oklch(0.997 0.015 136.6);
-  --sidebar-foreground: oklch(0.25 0.02 136.6);
+  --sidebar-background: oklch(0.98 0.012 75);
+  --sidebar-foreground: oklch(0.25 0.02 60);
   --sidebar-primary: oklch(0.628 0.177 42.6);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.935 0.023 128.5);
-  --sidebar-accent-foreground: oklch(0.25 0.02 136.6);
-  --sidebar-border: oklch(0.935 0.023 128.5);
+  --sidebar-accent: oklch(0.93 0.02 75);
+  --sidebar-accent-foreground: oklch(0.25 0.02 60);
+  --sidebar-border: oklch(0.93 0.02 75);
   --sidebar-ring: oklch(0.628 0.177 42.6);
 }
 
@@ -116,57 +116,56 @@
 
 /* ─── react-big-calendar light theme ─── */
 .calendar-light .rbc-calendar {
-  color: oklch(0.25 0.02 136.6);
+  color: oklch(0.25 0.02 60);
 }
 .calendar-light .rbc-toolbar button {
-  color: oklch(0.45 0.02 136.6);
-  border-color: oklch(0.935 0.023 128.5);
+  color: oklch(0.45 0.02 60);
+  border-color: oklch(0.93 0.02 75);
   background: transparent;
 }
 .calendar-light .rbc-toolbar button:hover,
 .calendar-light .rbc-toolbar button.rbc-active {
-  background: oklch(0.935 0.023 128.5);
-  color: oklch(0.25 0.02 136.6);
-  border-color: oklch(0.935 0.023 128.5);
+  background: oklch(0.93 0.02 75);
+  color: oklch(0.25 0.02 60);
+  border-color: oklch(0.93 0.02 75);
 }
 .calendar-light .rbc-header {
-  border-color: oklch(0.935 0.023 128.5);
-  color: oklch(0.45 0.02 136.6);
+  border-color: oklch(0.93 0.02 75);
+  color: oklch(0.45 0.02 60);
   padding: 8px 4px;
   font-weight: 500;
 }
 .calendar-light .rbc-month-view,
 .calendar-light .rbc-time-view {
-  border-color: oklch(0.935 0.023 128.5);
+  border-color: oklch(0.93 0.02 75);
 }
 .calendar-light .rbc-day-bg {
-  border-color: oklch(0.935 0.023 128.5);
+  border-color: oklch(0.93 0.02 75);
 }
 .calendar-light .rbc-off-range-bg {
-  background: oklch(0.96 0.01 136.6);
+  background: oklch(0.96 0.01 75);
 }
 .calendar-light .rbc-today {
-  background: rgba(16, 185, 129, 0.06);
+  background: rgba(226, 90, 49, 0.06);
 }
 .calendar-light .rbc-month-row,
 .calendar-light .rbc-time-content,
 .calendar-light .rbc-timeslot-group {
-  border-color: oklch(0.935 0.023 128.5);
+  border-color: oklch(0.93 0.02 75);
 }
 .calendar-light .rbc-time-header-content {
-  border-color: oklch(0.935 0.023 128.5);
+  border-color: oklch(0.93 0.02 75);
 }
 .calendar-light .rbc-time-slot {
-  border-color: oklch(0.96 0.01 136.6);
+  border-color: oklch(0.96 0.01 75);
 }
 .calendar-light .rbc-label {
-  color: oklch(0.45 0.02 136.6);
+  color: oklch(0.45 0.02 60);
   font-size: 0.75rem;
 }
 .calendar-light .rbc-current-time-indicator {
-  background: #10b981;
+  background: oklch(0.628 0.177 42.6);
 }
 .calendar-light .rbc-show-more {
-  color: #10b981;
+  color: oklch(0.628 0.177 42.6);
 }
-

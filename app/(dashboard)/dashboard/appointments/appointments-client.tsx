@@ -72,9 +72,9 @@ const STATUS_COLORS: Record<
   { bg: string; label: string; badge: string }
 > = {
   scheduled: {
-    bg: "#10b981",
+    bg: "#ea580c",
     label: "Scheduled",
-    badge: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+    badge: "bg-orange-500/10 text-orange-600 border-orange-500/20",
   },
   completed: {
     bg: "#6366f1",
@@ -253,7 +253,7 @@ export function AppointmentsClient({
     const status = event.resource.status;
     return {
       style: {
-        backgroundColor: STATUS_COLORS[status]?.bg ?? "#10b981",
+        backgroundColor: STATUS_COLORS[status]?.bg ?? "#ea580c",
         borderRadius: "6px",
         border: "none",
         color: "#fff",
@@ -298,7 +298,7 @@ export function AppointmentsClient({
               onClick={() => setViewMode("calendar")}
               className={`px-3 py-1.5 text-sm flex items-center gap-1.5 transition-colors ${
                 viewMode === "calendar"
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-orange-600 text-white"
                   : "bg-card text-muted-foreground hover:bg-accent"
               }`}
             >
@@ -309,7 +309,7 @@ export function AppointmentsClient({
               onClick={() => setViewMode("list")}
               className={`px-3 py-1.5 text-sm flex items-center gap-1.5 transition-colors ${
                 viewMode === "list"
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-orange-600 text-white"
                   : "bg-card text-muted-foreground hover:bg-accent"
               }`}
             >
@@ -323,7 +323,7 @@ export function AppointmentsClient({
               setSelectedSlot(null);
               setDialogOpen(true);
             }}
-            className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20"
+            className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-500/20"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Appointment
@@ -525,7 +525,7 @@ export function AppointmentsClient({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-muted-foreground hover:text-emerald-600"
+                          className="h-8 w-8 text-muted-foreground hover:text-orange-600"
                           onClick={() => router.push(`/dashboard/appointments/${apt.id}`)}
                         >
                           <Eye className="w-4 h-4" />

@@ -88,10 +88,10 @@ export default function DashboardShell({
       >
         {/* Logo */}
         <div className="h-16 flex items-center gap-3 px-6 border-b border-border shrink-0">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
             <PawPrint className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+          <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
             CoCo
           </span>
           <Button
@@ -119,7 +119,7 @@ export default function DashboardShell({
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                   isActive
-                    ? "bg-emerald-500/10 text-emerald-400 shadow-sm"
+                    ? "bg-orange-500/10 text-orange-400 shadow-sm"
                     : "text-muted-foreground hover:text-foreground hover:bg-accent"
                 )}
               >
@@ -160,7 +160,7 @@ export default function DashboardShell({
                 className="flex items-center gap-2 px-2 hover:bg-accent"
               >
                 <Avatar className="h-8 w-8 border border-border">
-                  <AvatarFallback className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white text-xs font-semibold">
+                  <AvatarFallback className="bg-gradient-to-br from-orange-600 to-amber-700 text-white text-xs font-semibold">
                     {initials}
                   </AvatarFallback>
                 </Avatar>

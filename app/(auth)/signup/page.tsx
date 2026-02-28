@@ -66,12 +66,12 @@ export default function SignupPage() {
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 left-1/3 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 left-1/3 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
       </div>
 
       <Card className="w-full max-w-md border-border bg-card backdrop-blur-xl shadow-2xl relative">
         <CardHeader className="text-center space-y-3">
-          <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+          <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
             <PawPrint className="w-7 h-7 text-white" />
           </div>
           <CardTitle className="text-2xl font-bold text-foreground">
@@ -144,7 +144,7 @@ export default function SignupPage() {
           <CardFooter className="flex flex-col gap-4">
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-medium shadow-lg shadow-emerald-500/20 transition-all duration-200"
+              className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-medium shadow-lg shadow-orange-500/20 transition-all duration-200"
               disabled={loading}
             >
               {loading ? (
@@ -160,7 +160,7 @@ export default function SignupPage() {
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="text-emerald-400 hover:text-emerald-300 transition-colors font-medium"
+                className="text-orange-400 hover:text-orange-300 transition-colors font-medium"
               >
                 Sign in
               </Link>

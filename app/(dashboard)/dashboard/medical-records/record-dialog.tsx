@@ -368,7 +368,7 @@ export function RecordDialog({
                     </button>
                   </div>
                 ))}
-                <label className="w-16 h-16 rounded-lg border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:border-emerald-500/50 transition-colors">
+                <label className="w-16 h-16 rounded-lg border-2 border-dashed border-border flex items-center justify-center cursor-pointer hover:border-orange-500/50 transition-colors">
                   {uploading ? (
                     <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" />
                   ) : (
@@ -398,7 +398,7 @@ export function RecordDialog({
               <Button
                 type="submit"
                 disabled={form.formState.isSubmitting}
-                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white"
+                className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white"
               >
                 {form.formState.isSubmitting ? (
                   <Loader2 className="w-4 h-4 animate-spin mr-2" />

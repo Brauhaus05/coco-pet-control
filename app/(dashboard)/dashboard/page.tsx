@@ -112,8 +112,8 @@ export default async function DashboardPage() {
       label: "Total Pets",
       value: petsRes.count ?? 0,
       icon: Cat,
-      gradient: "from-emerald-500 to-teal-600",
-      shadow: "shadow-emerald-500/20",
+      gradient: "from-orange-500 to-amber-600",
+      shadow: "shadow-orange-500/20",
     },
     {
       label: "Upcoming Appointments",
@@ -194,7 +194,7 @@ export default async function DashboardPage() {
 
   const activityColors: Record<string, string> = {
     owner: "bg-blue-500/10 text-blue-500",
-    pet: "bg-emerald-500/10 text-emerald-500",
+    pet: "bg-orange-500/10 text-orange-500",
     record: "bg-purple-500/10 text-purple-500",
     appointment: "bg-amber-500/10 text-amber-500",
   };
@@ -263,7 +263,7 @@ export default async function DashboardPage() {
             </div>
             <Link
               href="/dashboard/appointments"
-              className="text-xs text-emerald-600 hover:text-emerald-500 font-medium"
+              className="text-xs text-orange-600 hover:text-orange-500 font-medium"
             >
               View all →
             </Link>
@@ -320,7 +320,7 @@ export default async function DashboardPage() {
         <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
                 <DollarSign className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -334,7 +334,7 @@ export default async function DashboardPage() {
             </div>
             <Link
               href="/dashboard/invoices"
-              className="text-xs text-emerald-600 hover:text-emerald-500 font-medium"
+              className="text-xs text-orange-600 hover:text-orange-500 font-medium"
             >
               View all →
             </Link>
@@ -353,7 +353,7 @@ export default async function DashboardPage() {
             {/* Progress bar */}
             <div>
               <div className="flex justify-between text-xs mb-1.5">
-                <span className="text-emerald-600 font-medium">
+                <span className="text-orange-600 font-medium">
                   Paid {formatCurrency(monthPaid)}
                 </span>
                 <span className="text-amber-600 font-medium">
@@ -362,7 +362,7 @@ export default async function DashboardPage() {
               </div>
               <div className="h-2.5 rounded-full bg-muted overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-500"
+                  className="h-full rounded-full bg-gradient-to-r from-orange-500 to-amber-500 transition-all duration-500"
                   style={{
                     width: monthTotal > 0 ? `${(monthPaid / monthTotal) * 100}%` : "0%",
                   }}
@@ -372,10 +372,10 @@ export default async function DashboardPage() {
 
             {/* Quick stats */}
             <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+              <div className="p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-                  <span className="text-[10px] font-medium text-emerald-600 uppercase tracking-wider">
+                  <TrendingUp className="w-3.5 h-3.5 text-orange-600" />
+                  <span className="text-[10px] font-medium text-orange-600 uppercase tracking-wider">
                     Collected
                   </span>
                 </div>

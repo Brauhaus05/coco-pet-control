@@ -114,8 +114,8 @@ const STATUS_STYLES: Record<
     label: "Scheduled",
   },
   completed: {
-    bg: "bg-emerald-500/10",
-    text: "text-emerald-700",
+    bg: "bg-orange-500/10",
+    text: "text-orange-700",
     label: "Completed",
   },
   cancelled: {
@@ -134,7 +134,7 @@ const PRESCRIPTION_STATUS: Record<
   string,
   { dot: string; label: string }
 > = {
-  administered: { dot: "bg-emerald-500", label: "Administered" },
+  administered: { dot: "bg-orange-500", label: "Administered" },
   dispensed: { dot: "bg-orange-500", label: "Dispensed" },
   pending: { dot: "bg-blue-500", label: "Pending" },
   cancelled: { dot: "bg-zinc-400", label: "Cancelled" },
@@ -144,7 +144,7 @@ const PRIORITY_ICONS: Record<
   string,
   { color: string; bgColor: string }
 > = {
-  routine: { color: "text-emerald-600", bgColor: "bg-emerald-500/10" },
+  routine: { color: "text-orange-600", bgColor: "bg-orange-500/10" },
   important: { color: "text-orange-600", bgColor: "bg-orange-500/10" },
   urgent: { color: "text-red-600", bgColor: "bg-red-500/10" },
 };
@@ -440,8 +440,8 @@ export function AppointmentSummaryClient({
             {pet ? (
               <>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center border-2 border-emerald-500/20 flex-shrink-0">
-                    <PawPrint className="w-6 h-6 text-emerald-600" />
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center border-2 border-orange-500/20 flex-shrink-0">
+                    <PawPrint className="w-6 h-6 text-orange-600" />
                   </div>
                   <div>
                     <p className="font-bold text-foreground text-lg">
@@ -490,8 +490,8 @@ export function AppointmentSummaryClient({
         <Card className="bg-card border-border shadow-sm overflow-hidden">
           <CardContent className="p-5">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                <ClipboardList className="w-4 h-4 text-emerald-600" />
+              <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                <ClipboardList className="w-4 h-4 text-orange-600" />
               </div>
               <h3 className="font-semibold text-foreground">
                 Appointment Details
@@ -514,7 +514,7 @@ export function AppointmentSummaryClient({
                 </p>
                 {vet ? (
                   <div className="flex items-center gap-2 mt-1">
-                    <div className="w-7 h-7 rounded-full bg-emerald-500/10 flex items-center justify-center text-[10px] font-bold text-emerald-600 flex-shrink-0">
+                    <div className="w-7 h-7 rounded-full bg-orange-500/10 flex items-center justify-center text-[10px] font-bold text-orange-600 flex-shrink-0">
                       {getInitials(vet.full_name)}
                     </div>
                     <span className="text-sm font-medium text-foreground">
@@ -648,7 +648,7 @@ export function AppointmentSummaryClient({
                     size="sm"
                     disabled={saving}
                     onClick={handleSaveVitals}
-                    className="h-7 text-xs bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white"
+                    className="h-7 text-xs bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white"
                   >
                     {saving && (
                       <Loader2 className="w-3 h-3 mr-1 animate-spin" />
@@ -814,7 +814,7 @@ export function AppointmentSummaryClient({
                       size="sm"
                       disabled={saving || !recommendationForm.title}
                       onClick={handleSaveRecommendation}
-                      className="h-7 text-xs bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white"
+                      className="h-7 text-xs bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white"
                     >
                       {saving && (
                         <Loader2 className="w-3 h-3 mr-1 animate-spin" />
@@ -892,8 +892,8 @@ export function AppointmentSummaryClient({
         <CardContent className="p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center">
-                <ClipboardList className="w-4 h-4 text-teal-600" />
+              <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <ClipboardList className="w-4 h-4 text-amber-600" />
               </div>
               <h3 className="font-semibold text-foreground">
                 Prescriptions & Treatments Administered
@@ -1025,7 +1025,7 @@ export function AppointmentSummaryClient({
                   size="sm"
                   disabled={saving || !prescriptionForm.item_name}
                   onClick={handleSavePrescription}
-                  className="h-7 text-xs bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white"
+                  className="h-7 text-xs bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white"
                 >
                   {saving && (
                     <Loader2 className="w-3 h-3 mr-1 animate-spin" />

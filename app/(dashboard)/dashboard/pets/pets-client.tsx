@@ -62,7 +62,7 @@ export function PetsClient({ pets, owners }: PetsClientProps) {
     dog: "bg-blue-500/10 text-blue-400 border-blue-500/20",
     cat: "bg-purple-500/10 text-purple-400 border-purple-500/20",
     bird: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-    reptile: "bg-green-500/10 text-green-400 border-green-500/20",
+    reptile: "bg-orange-500/10 text-orange-400 border-orange-500/20",
   };
 
   return (
@@ -81,7 +81,7 @@ export function PetsClient({ pets, owners }: PetsClientProps) {
             setEditing(null);
             setDialogOpen(true);
           }}
-          className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20"
+          className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-500/20"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Pet
@@ -133,7 +133,7 @@ export function PetsClient({ pets, owners }: PetsClientProps) {
                   <TableCell className="font-medium text-foreground">
                     <Link
                       href={`/dashboard/pets/${pet.id}`}
-                      className="hover:text-emerald-600 transition-colors underline-offset-2 hover:underline"
+                      className="hover:text-orange-600 transition-colors underline-offset-2 hover:underline"
                     >
                       {pet.name}
                     </Link>

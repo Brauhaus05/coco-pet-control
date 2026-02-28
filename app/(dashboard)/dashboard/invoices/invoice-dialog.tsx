@@ -429,7 +429,7 @@ export function InvoiceDialog({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="text-emerald-600 hover:text-emerald-500 hover:bg-emerald-500/10 h-7 text-xs"
+                  className="text-orange-600 hover:text-orange-500 hover:bg-orange-500/10 h-7 text-xs"
                   onClick={() =>
                     append({
                       id: undefined,
@@ -581,7 +581,7 @@ export function InvoiceDialog({
               <Button
                 type="submit"
                 disabled={form.formState.isSubmitting}
-                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white"
+                className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white"
               >
                 {form.formState.isSubmitting ? (
                   <Loader2 className="w-4 h-4 animate-spin mr-2" />

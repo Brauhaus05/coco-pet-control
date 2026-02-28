@@ -78,12 +78,12 @@ interface OwnerProfileClientProps {
 
 const STATUS_STYLES: Record<string, { bg: string; text: string }> = {
   scheduled: { bg: "bg-blue-500/10", text: "text-blue-700" },
-  completed: { bg: "bg-emerald-500/10", text: "text-emerald-700" },
+  completed: { bg: "bg-orange-500/10", text: "text-orange-700" },
   cancelled: { bg: "bg-red-500/10", text: "text-red-600" },
   "no-show": { bg: "bg-amber-500/10", text: "text-amber-700" },
   draft: { bg: "bg-muted", text: "text-muted-foreground" },
   sent: { bg: "bg-blue-500/10", text: "text-blue-600" },
-  paid: { bg: "bg-emerald-500/10", text: "text-emerald-600" },
+  paid: { bg: "bg-orange-500/10", text: "text-orange-600" },
   overdue: { bg: "bg-red-500/10", text: "text-red-600" },
 };
 
@@ -188,8 +188,8 @@ export function OwnerProfileClient({
         <Card className="bg-card border-border shadow-sm md:col-span-2">
           <CardContent className="p-5">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                <PawPrint className="w-4 h-4 text-emerald-600" />
+              <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                <PawPrint className="w-4 h-4 text-orange-600" />
               </div>
               <h3 className="font-semibold text-foreground">
                 Pets ({pets.length})
@@ -205,13 +205,13 @@ export function OwnerProfileClient({
                   <Link
                     key={pet.id}
                     href={`/dashboard/pets/${pet.id}`}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 border border-border hover:border-emerald-500/30 transition-colors group"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 border border-border hover:border-orange-500/30 transition-colors group"
                   >
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center border-2 border-emerald-500/20 flex-shrink-0">
-                      <PawPrint className="w-4 h-4 text-emerald-600" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center border-2 border-orange-500/20 flex-shrink-0">
+                      <PawPrint className="w-4 h-4 text-orange-600" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-foreground group-hover:text-emerald-600 transition-colors truncate">
+                      <p className="text-sm font-semibold text-foreground group-hover:text-orange-600 transition-colors truncate">
                         {pet.name}
                       </p>
                       <p className="text-xs text-muted-foreground truncate">

@@ -89,14 +89,14 @@ function getInitials(first: string, last: string) {
 
 const typeColors: Record<string, string> = {
   "check-up": "bg-blue-500/10 text-blue-600 border-blue-500/20",
-  vaccination: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+  vaccination: "bg-orange-500/10 text-orange-600 border-orange-500/20",
   emergency: "bg-red-500/10 text-red-600 border-red-500/20",
   surgery: "bg-purple-500/10 text-purple-600 border-purple-500/20",
   dental: "bg-amber-500/10 text-amber-600 border-amber-500/20",
 };
 
 const statusDot: Record<string, string> = {
-  completed: "bg-emerald-500",
+  completed: "bg-orange-500",
   scheduled: "bg-blue-500",
   cancelled: "bg-zinc-400",
   "no-show": "bg-red-500",
@@ -179,7 +179,7 @@ export function PetProfileClient({
             </Link>
           </Button>
           <Button
-            className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20"
+            className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-500/20"
             asChild
           >
             <Link href="/dashboard/appointments">
@@ -198,8 +198,8 @@ export function PetProfileClient({
           <Card className="bg-card border-border shadow-sm overflow-hidden">
             <CardContent className="p-6 text-center">
               {/* Avatar placeholder */}
-              <div className="mx-auto w-28 h-28 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center mb-4 border-4 border-emerald-500/20 shadow-lg shadow-emerald-500/10">
-                <PawPrint className="w-12 h-12 text-emerald-600" />
+              <div className="mx-auto w-28 h-28 rounded-full bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center mb-4 border-4 border-orange-500/20 shadow-lg shadow-orange-500/10">
+                <PawPrint className="w-12 h-12 text-orange-600" />
               </div>
               <h2 className="text-2xl font-bold text-foreground">
                 {pet.name}
@@ -245,7 +245,7 @@ export function PetProfileClient({
                   Owner
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-sm font-bold text-emerald-600 flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center text-sm font-bold text-orange-600 flex-shrink-0">
                     {getInitials(owner.first_name, owner.last_name)}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -263,7 +263,7 @@ export function PetProfileClient({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-emerald-600"
+                        className="h-8 w-8 text-muted-foreground hover:text-orange-600"
                         asChild
                       >
                         <a href={`tel:${owner.phone}`}>
@@ -275,7 +275,7 @@ export function PetProfileClient({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-emerald-600"
+                        className="h-8 w-8 text-muted-foreground hover:text-orange-600"
                         asChild
                       >
                         <a href={`mailto:${owner.email}`}>
@@ -308,8 +308,8 @@ export function PetProfileClient({
           <div className="grid grid-cols-2 gap-4">
             <Card className="bg-card border-border shadow-sm">
               <CardContent className="p-5 text-center">
-                <div className="w-10 h-10 mx-auto rounded-xl bg-emerald-500/10 flex items-center justify-center mb-2">
-                  <Syringe className="w-5 h-5 text-emerald-600" />
+                <div className="w-10 h-10 mx-auto rounded-xl bg-orange-500/10 flex items-center justify-center mb-2">
+                  <Syringe className="w-5 h-5 text-orange-600" />
                 </div>
                 <p className="text-2xl font-bold text-foreground">
                   {totalRecords}
@@ -501,7 +501,7 @@ export function PetProfileClient({
                   </h3>
                   <Link
                     href="/dashboard/medical-records"
-                    className="text-sm text-emerald-600 hover:text-emerald-500 transition-colors font-medium"
+                    className="text-sm text-orange-600 hover:text-orange-500 transition-colors font-medium"
                   >
                     View All
                   </Link>

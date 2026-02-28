@@ -97,8 +97,8 @@ export function RecordDetailClient({ record }: { record: RecordData }) {
         <Card className="bg-card border-border shadow-sm">
           <CardContent className="p-5">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                <PawPrint className="w-4 h-4 text-emerald-600" />
+              <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                <PawPrint className="w-4 h-4 text-orange-600" />
               </div>
               <h3 className="font-semibold text-foreground">Patient</h3>
             </div>
@@ -106,7 +106,7 @@ export function RecordDetailClient({ record }: { record: RecordData }) {
               <div className="space-y-2">
                 <Link
                   href={`/dashboard/pets/${pet.id}`}
-                  className="text-lg font-bold text-foreground hover:text-emerald-600 transition-colors"
+                  className="text-lg font-bold text-foreground hover:text-orange-600 transition-colors"
                 >
                   {pet.name}
                 </Link>
@@ -187,7 +187,7 @@ export function RecordDetailClient({ record }: { record: RecordData }) {
             {/* Treatment */}
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Stethoscope className="w-4 h-4 text-emerald-500" />
+                <Stethoscope className="w-4 h-4 text-orange-500" />
                 <p className="text-sm font-semibold text-foreground">
                   Treatment
                 </p>

@@ -98,7 +98,7 @@ interface InvoicesClientProps {
 const statusColors: Record<string, string> = {
   draft: "bg-muted text-muted-foreground border-border",
   sent: "bg-blue-500/10 text-blue-600 border-blue-500/20",
-  paid: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+  paid: "bg-orange-500/10 text-orange-600 border-orange-500/20",
   overdue: "bg-red-500/10 text-red-600 border-red-500/20",
   cancelled: "bg-muted text-muted-foreground border-border",
 };
@@ -261,7 +261,7 @@ export function InvoicesClient({
             setEditing(null);
             setDialogOpen(true);
           }}
-          className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20"
+          className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-500/20"
         >
           <Plus className="w-4 h-4 mr-2" />
           Create Invoice
@@ -272,8 +272,8 @@ export function InvoicesClient({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="bg-card border-border shadow-sm">
           <CardContent className="flex items-center gap-4 p-5">
-            <div className="rounded-xl bg-emerald-500/10 p-3">
-              <DollarSign className="w-5 h-5 text-emerald-600" />
+            <div className="rounded-xl bg-orange-500/10 p-3">
+              <DollarSign className="w-5 h-5 text-orange-600" />
             </div>
             <div>
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -356,8 +356,8 @@ export function InvoicesClient({
       {invoices.length === 0 && !search && statusFilter === "all" ? (
         /* Rich empty state */
         <div className="rounded-xl border border-dashed border-border bg-card p-16 text-center">
-          <div className="mx-auto w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-5">
-            <FileText className="w-8 h-8 text-emerald-600" />
+          <div className="mx-auto w-16 h-16 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-5">
+            <FileText className="w-8 h-8 text-orange-600" />
           </div>
           <h2 className="text-xl font-semibold text-foreground mb-2">
             No invoices yet
@@ -372,7 +372,7 @@ export function InvoicesClient({
               setEditing(null);
               setDialogOpen(true);
             }}
-            className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20"
+            className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-500/20"
           >
             <Plus className="w-4 h-4 mr-2" />
             Create your first invoice
